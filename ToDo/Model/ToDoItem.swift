@@ -50,6 +50,7 @@ extension ToDoItem {
         if deadline == nil {
             nsDictionary.removeObject(forKey: "deadline")
         }
+        
         return nsDictionary
     }
     
@@ -58,7 +59,6 @@ extension ToDoItem {
             let jsonData = try JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
             let decoded = try JSONSerialization.jsonObject(with: jsonData, options: [])
             if let dictFromJSON = decoded as? [String: String] {
-                print(dictFromJSON)
                 if let dateChangedFromJSON = dictFromJSON["dateChanged"], let deadlineFromJSON = dictFromJSON["deadline"] {
                     return ToDoItem(text: dictFromJSON["text"]!,
                                     importance: Importance.convertFromString(string: dictFromJSON["importance"]!),

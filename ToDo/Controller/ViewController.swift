@@ -8,13 +8,16 @@
 import UIKit
 
 class ViewController: UIViewController {
+    
+    var fileCache = FileCache()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         var item = ToDoItem(text: "hello se", importance: .important, deadline: nil, isComplete: false, dateCreated: Date(), dateChanged: nil)
-        print(item.json)
-        let iitem = ToDoItem.parse(json: item.json)
-        print(iitem)
+        var item2 = ToDoItem(text: "sema", importance: .ordinary, deadline: nil, isComplete: false, dateCreated: Date(), dateChanged: nil)
+        fileCache.addNewItem(item: item)
+        fileCache.addNewItem(item: item2)
+        fileCache.saveItems()
     }
 
 
