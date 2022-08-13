@@ -9,6 +9,7 @@ import Foundation
 
 struct FileCache {
     var toDoItems = [ToDoItem]()
+    let fileName = "ToDoItems.json"
     
     mutating func addNewItem(item: ToDoItem) {
         toDoItems.append(item)
@@ -25,18 +26,26 @@ struct FileCache {
     }
     
     func saveItems() {
-        if let documentDirectory = FileManager.default.urls(for: .documentDirectory,
-                                                            in: .userDomainMask).first {
-            let pathWithFilename = documentDirectory.appendingPathComponent("ToDoItems.json")
-            let jsonItems = toDoItems.map { item in
-                item.json as! NSMutableDictionary
-            }
-            do {
-                let jsonData = try JSONSerialization.data(withJSONObject: jsonItems, options: [])
-                try jsonData.write(to: pathWithFilename, options: [])
-            } catch {
-                print("Error with saving items, \(error.localizedDescription)")
-            }
+        guard let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
+        let fileUrl = documentDirectory.appendingPathComponent(fileName)
+        let jsonItems = toDoItems.map { $0.json as! NSMutableDictionary }
+        do {
+            let jsonData = try JSONSerialization.data(withJSONObject: jsonItems, options: [])
+            try jsonData.write(to: fileUrl, options: [])
+        } catch {
+            print("Error with saving items to JSON, \(error.localizedDescription)")
+        }
+    }
+    
+    mutating func loadItems() {
+        guard let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
+        let fileUrl = documentDirectory.appendingPathComponent(fileName)
+        do {
+            let data = try Data(contentsOf: fileUrl, options: [])
+            guard let items = try JSONSerialization.jsonObject(with: data, options: []) as? [[String: String]] else { return }
+            self.toDoItems = items.map{ ToDoItem.parse(json: $0)! }
+        } catch {
+            print("Error with loading items from JSON, \(error.localizedDescription)")
         }
     }
 }
