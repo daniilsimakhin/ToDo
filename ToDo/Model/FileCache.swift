@@ -26,6 +26,12 @@ class FileCache: FileCacheDelegate{
     let fileName = "ToDoItems.json"
     
     func addNewItem(item: ToDoItem) {
+        var item = item
+        while toDoItems.contains(where: { toDoItem in
+            toDoItem.id == item.id
+        }) {
+            item = ToDoItem(id: UUID().uuidString, text: item.text, importance: item.importance, deadline: item.deadline, isComplete: item.isComplete, dateCreated: item.dateCreated, dateChanged: item.dateChanged)
+        }
         toDoItems.append(item)
     }
     
