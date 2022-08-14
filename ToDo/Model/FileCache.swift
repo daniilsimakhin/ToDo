@@ -7,15 +7,29 @@
 
 import Foundation
 
-struct FileCache {
+protocol FileCacheDelegate {
+    var toDoItems: [ToDoItem] { get }
+    
+    func addNewItem(item: ToDoItem)
+    
+    func deleteItem(id: String)
+    
+    func saveItems()
+    
+    func loadItems()
+}
+
+class FileCache: FileCacheDelegate{
+    
     var toDoItems = [ToDoItem]()
+    
     let fileName = "ToDoItems.json"
     
-    mutating func addNewItem(item: ToDoItem) {
+    func addNewItem(item: ToDoItem) {
         toDoItems.append(item)
     }
     
-    mutating func deleteItem(id: String) {
+    func deleteItem(id: String) {
         for (index, values) in toDoItems.enumerated() {
             if values.id == id {
                 toDoItems.remove(at: index)
@@ -37,7 +51,7 @@ struct FileCache {
         }
     }
     
-    mutating func loadItems() {
+    func loadItems() {
         guard let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
         let fileUrl = documentDirectory.appendingPathComponent(fileName)
         do {
