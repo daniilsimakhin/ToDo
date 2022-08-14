@@ -7,30 +7,30 @@
 
 import Foundation
 
-enum Importance: String {
-    case important
-    case unimportant
-    case ordinary
-    
-    static func convertFromString(string: String) -> Importance {
-        if string == Importance.important.rawValue {
-            return Importance.important
-        } else if string == Importance.unimportant.rawValue {
-            return Importance.important
-        } else {
-            return Importance.important
-        }
-    }
-}
-
 struct ToDoItem {
-    let id: String = UUID().uuidString
+    let id: String
     let text: String
     let importance: Importance
     let deadline: Date?
     let isComplete: Bool
     let dateCreated: Date
     let dateChanged: Date?
+    
+    enum Importance: String {
+        case important
+        case unimportant
+        case ordinary
+        
+        static func convertFromString(string: String) -> Importance {
+            if string == Importance.important.rawValue {
+                return Importance.important
+            } else if string == Importance.unimportant.rawValue {
+                return Importance.important
+            } else {
+                return Importance.important
+            }
+        }
+    }
 }
 
 extension ToDoItem {
@@ -50,7 +50,9 @@ extension ToDoItem {
         if deadline == nil {
             nsDictionary.removeObject(forKey: "deadline")
         }
-        
+        if dateChanged == nil {
+            nsDictionary.removeObject(forKey: "dateChanged")
+        }
         return nsDictionary
     }
     
@@ -58,23 +60,18 @@ extension ToDoItem {
         do {
             let jsonData = try JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
             let decoded = try JSONSerialization.jsonObject(with: jsonData, options: [])
-            if let dictFromJSON = decoded as? [String: String] {
-                if let dateChangedFromJSON = dictFromJSON["dateChanged"], let deadlineFromJSON = dictFromJSON["deadline"] {
-                    return ToDoItem(text: dictFromJSON["text"]!,
-                                    importance: Importance.convertFromString(string: dictFromJSON["importance"]!),
-                                    deadline: Date(timeIntervalSince1970: TimeInterval(Float(deadlineFromJSON)!)),
-                                    isComplete: (dictFromJSON["isComplete"] != nil),
-                                    dateCreated: Date(timeIntervalSince1970:  TimeInterval(dictFromJSON["dateCreated"]!)!),
-                                    dateChanged: Date(timeIntervalSince1970: TimeInterval(Float(dateChangedFromJSON)!)))
-                } else {
-                    return ToDoItem(text: dictFromJSON["text"]!,
-                                    importance: Importance.convertFromString(string: dictFromJSON["importance"]!),
-                                    deadline: nil,
-                                    isComplete: (dictFromJSON["isComplete"] != nil),
-                                    dateCreated: Date(timeIntervalSince1970:  TimeInterval(dictFromJSON["dateCreated"]!)!),
-                                    dateChanged: nil)
-                }
-            }
+            guard let dictFromJSON = decoded as? [String: String] else { return nil }
+            
+            let deadline = dictFromJSON["deadline"] != nil ? Date(timeIntervalSince1970: TimeInterval(Float(dictFromJSON["deadline"]!)!)) : nil
+            let dateChanged = dictFromJSON["dateChanged"] != nil ? Date(timeIntervalSince1970: TimeInterval(Float(dictFromJSON["dateChanged"]!)!)) : nil
+            
+            return ToDoItem(id: dictFromJSON["id"]!,
+                            text: dictFromJSON["text"]!,
+                            importance: Importance.convertFromString(string: dictFromJSON["importance"] ?? "ordinary"),
+                            deadline: deadline,
+                            isComplete: (dictFromJSON["isComplete"] != nil),
+                            dateCreated: Date(timeIntervalSince1970: TimeInterval(dictFromJSON["dateCreated"]!)!),
+                            dateChanged: dateChanged)
         } catch {
             print(error.localizedDescription)
         }
