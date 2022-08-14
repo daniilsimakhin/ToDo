@@ -39,10 +39,10 @@ extension ToDoItem {
             "id": "\(id)",
             "text": "\(text)",
             "importance": "\(importance)",
-            "deadline": "\(deadline?.timeIntervalSince1970)",
+            "deadline": "\(deadline?.timeIntervalSince1970 ?? 0)",
             "isComplete": "\(isComplete)",
             "dateCreated": "\(dateCreated.timeIntervalSince1970)",
-            "dateChanged": "\(dateChanged?.timeIntervalSince1970)",
+            "dateChanged": "\(dateChanged?.timeIntervalSince1970 ?? 0)",
         ])
         if importance == .ordinary {
             nsDictionary.removeObject(forKey: "importance")
@@ -61,7 +61,6 @@ extension ToDoItem {
             let jsonData = try JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
             let decoded = try JSONSerialization.jsonObject(with: jsonData, options: [])
             guard let dictFromJSON = decoded as? [String: String] else { return nil }
-            
             let deadline = dictFromJSON["deadline"] != nil ? Date(timeIntervalSince1970: TimeInterval(Float(dictFromJSON["deadline"]!)!)) : nil
             let dateChanged = dictFromJSON["dateChanged"] != nil ? Date(timeIntervalSince1970: TimeInterval(Float(dictFromJSON["dateChanged"]!)!)) : nil
             
