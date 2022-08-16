@@ -13,13 +13,6 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let item = ToDoItem(id: UUID().uuidString, text: "hello se", importance: .important, deadline: nil, isComplete: false, dateCreated: Date(), dateChanged: nil)
-        var item2 = ToDoItem(id: UUID().uuidString, text: "sema", importance: .ordinary, deadline: nil, isComplete: false, dateCreated: Date(), dateChanged: Date())
-        fileCache.addNewItem(item: item)
-        fileCache.addNewItem(item: item2)
-        fileCache.saveItems()
-        fileCache.loadItems()
-        print(fileCache.toDoItems)
     }
 
 
