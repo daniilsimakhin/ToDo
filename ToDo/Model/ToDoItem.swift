@@ -12,7 +12,7 @@ struct ToDoItem {
     let text: String
     let importance: Importance
     let deadline: Date?
-    let isComplete: Bool
+    var isComplete: Bool
     let dateCreated: Date
     let dateChanged: Date?
     
@@ -68,7 +68,7 @@ extension ToDoItem {
                             text: dictFromJSON["text"]!,
                             importance: Importance.convertFromString(string: dictFromJSON["importance"] ?? "ordinary"),
                             deadline: deadline,
-                            isComplete: (dictFromJSON["isComplete"] != nil),
+                            isComplete: Bool(dictFromJSON["isComplete"]!)!,
                             dateCreated: Date(timeIntervalSince1970: TimeInterval(dictFromJSON["dateCreated"]!)!),
                             dateChanged: dateChanged)
         } catch {
