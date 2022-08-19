@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TaskList: UIViewController {
+class TaskListViewController: UIViewController {
     
     var fileCache = FileCache()
     
@@ -15,7 +15,7 @@ class TaskList: UIViewController {
     
     private let addTaskButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = .systemBlue
+        button.backgroundColor = Constans.Colors.navBarItemColor
         button.tintColor = .white
         button.translatesAutoresizingMaskIntoConstraints = false
         
@@ -43,9 +43,9 @@ class TaskList: UIViewController {
     }
     
     func setupUI() {
-        title = "Мои дела"
+        title = Constans.Texts.titleTaskList
         navigationController?.navigationBar.prefersLargeTitles = true
-        view.backgroundColor = .tertiarySystemGroupedBackground
+        view.backgroundColor = Constans.Colors.backgroundColor
         
         view.addSubview(tableView)
         view.addSubview(addTaskButton)
@@ -67,7 +67,7 @@ class TaskList: UIViewController {
         tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableView.automaticDimension
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.backgroundColor = .tertiarySystemGroupedBackground
+        tableView.backgroundColor = Constans.Colors.backgroundColor
         tableView.allowsSelection = false
     }
     
@@ -83,7 +83,7 @@ class TaskList: UIViewController {
     }
 }
 //MARK: - TaskTableViewCellDelegate
-extension TaskList: TaskTableViewCellDelegate {
+extension TaskListViewController: TaskTableViewCellDelegate {
     func updateCell(check: Bool, item: ToDoItem) {
         for (index, value) in fileCache.toDoItems.enumerated() {
             if value.id == item.id {
@@ -99,12 +99,12 @@ extension TaskList: TaskTableViewCellDelegate {
     }
 }
 //MARK: - TaskHeaderViewDelegate
-extension TaskList: TaskHeaderViewDelegate {
+extension TaskListViewController: TaskHeaderViewDelegate {
     func showButton(_ completedTasksHidden: Bool) {
     }
 }
 //MARK: - UITableViewDataSource
-extension TaskList: UITableViewDataSource {
+extension TaskListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return fileCache.toDoItems.count
     }
@@ -126,7 +126,7 @@ extension TaskList: UITableViewDataSource {
     }
 }
 //MARK: - UITableViewDelegate
-extension TaskList: UITableViewDelegate {
+extension TaskListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section == 0 {
             guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? TaskHeaderView else { return UIView() }

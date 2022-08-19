@@ -26,7 +26,7 @@ class TaskHeaderView: UITableViewHeaderFooterView {
     private let title: UILabel = {
         let title = UILabel()
         title.text = "Выполнено - 0"
-        title.textColor = .systemGray2
+        title.textColor = Constans.Colors.secondaryTextColor
         title.textAlignment = .left
         title.font = .systemFont(ofSize: 15, weight: .regular)
         title.translatesAutoresizingMaskIntoConstraints = false
@@ -35,7 +35,7 @@ class TaskHeaderView: UITableViewHeaderFooterView {
     private let showButton: UIButton = {
         let showButton = UIButton()
         showButton.setTitle("Показать", for: .normal)
-        showButton.setTitleColor(UIColor.systemBlue, for: .normal)
+        showButton.setTitleColor(Constans.Colors.navBarItemColor, for: .normal)
         showButton.contentHorizontalAlignment = .right
         showButton.titleLabel?.font = .systemFont(ofSize: 15, weight: .semibold)
         showButton.addTarget(self, action: #selector(showButtonPressed(sender:)), for: .touchUpInside)

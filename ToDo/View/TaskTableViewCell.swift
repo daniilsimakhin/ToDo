@@ -21,7 +21,7 @@ class TaskTableViewCell: UITableViewCell {
     
     private var checkbox: UIButton = {
         let checkbox = UIButton()
-        checkbox.tintColor = .systemGray2
+        checkbox.tintColor = Constans.Colors.secondaryTextColor
         checkbox.addTarget(self,
                            action: #selector(checkboxPressedButton),
                            for: .touchUpInside)
@@ -43,6 +43,7 @@ class TaskTableViewCell: UITableViewCell {
     private let title: UILabel = {
         let text = UILabel()
         text.text = String()
+        text.textColor = Constans.Colors.textColor
         text.numberOfLines = 3
         text.translatesAutoresizingMaskIntoConstraints = false
         return text
@@ -50,7 +51,7 @@ class TaskTableViewCell: UITableViewCell {
     private let dateTitle: UILabel = {
         let date = UILabel()
         date.text = String()
-        date.textColor = .systemGray2
+        date.textColor = Constans.Colors.secondaryTextColor
         date.isHidden = true
         date.translatesAutoresizingMaskIntoConstraints = false
         return date
@@ -100,7 +101,7 @@ class TaskTableViewCell: UITableViewCell {
         if state {
             let image = UIImage(systemName: "checkmark.circle.fill", withConfiguration: config)
             checkbox.setImage(image, for: .normal)
-            checkbox.tintColor = .systemGreen
+            checkbox.tintColor = Constans.Colors.checkboxColor
             
             let attributeString = NSMutableAttributedString(string: title.text!)
             attributeString.addAttribute(
@@ -108,11 +109,11 @@ class TaskTableViewCell: UITableViewCell {
                 value: 1,
                 range: NSRange(location: 0, length: attributeString.length))
             title.attributedText = attributeString
-            title.textColor = .systemGray2
+            title.textColor = Constans.Colors.secondaryTextColor
         } else {
             let image = UIImage(systemName: "circle", withConfiguration: config)
             checkbox.setImage(image, for: .normal)
-            checkbox.tintColor = .systemGray2
+            checkbox.tintColor = Constans.Colors.secondaryTextColor
             
             let attributeString = NSMutableAttributedString(string: title.text!)
             attributeString.addAttribute(
@@ -120,7 +121,7 @@ class TaskTableViewCell: UITableViewCell {
                 value: 0,
                 range: NSRange(location: 0, length: attributeString.length))
             title.attributedText = attributeString
-            title.textColor = .black
+            title.textColor = Constans.Colors.textColor
         }
     }
     
