@@ -35,6 +35,16 @@ class FileCache: FileCacheDelegate{
         toDoItems.append(item)
     }
     
+    func addNewItem(item: ToDoItem, indexPath: IndexPath) {
+        var item = item
+        while toDoItems.contains(where: { toDoItem in
+            toDoItem.id == item.id
+        }) {
+            item = ToDoItem(id: UUID().uuidString, text: item.text, importance: item.importance, deadline: item.deadline, isComplete: item.isComplete, dateCreated: item.dateCreated, dateChanged: item.dateChanged)
+        }
+        toDoItems.insert(item, at: indexPath.row)
+    }
+    
     func deleteItem(id: String) {
         for (index, values) in toDoItems.enumerated() {
             if values.id == id {
