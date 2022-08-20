@@ -11,7 +11,7 @@ protocol TaskHeaderViewDelegate {
     func showButton(_ completedTasksHidden: Bool)
 }
 
-class TaskHeaderView: UITableViewHeaderFooterView {
+class TaskTableViewHeaderFooterView: UITableViewHeaderFooterView {
     
     var delegate: TaskHeaderViewDelegate?
     
