@@ -7,6 +7,38 @@
 
 import Foundation
 
+enum Importance: String {
+    case unimportant
+    case ordinary
+    case important
+    
+    static func convertFromString(string: String) -> Importance {
+        switch string {
+        case Importance.unimportant.rawValue:
+            return .unimportant
+        case Importance.ordinary.rawValue:
+            return .ordinary
+        case Importance.important.rawValue:
+            return .important
+        default:
+            fatalError("convertFromString -> вернул дефолтное значение")
+        }
+    }
+    
+    static func convertFromIndex(index: Int) -> Importance {
+        switch index {
+        case 0:
+            return .unimportant
+        case 1:
+            return .ordinary
+        case 2:
+            return .important
+        default:
+            fatalError("convertFromIndex -> вернул дефолтное значение")
+        }
+    }
+}
+
 struct ToDoItem {
     let id: String
     let text: String
@@ -16,21 +48,6 @@ struct ToDoItem {
     let dateCreated: Date
     let dateChanged: Date?
     
-    enum Importance: String {
-        case important
-        case unimportant
-        case ordinary
-        
-        static func convertFromString(string: String) -> Importance {
-            if string == Importance.important.rawValue {
-                return Importance.important
-            } else if string == Importance.unimportant.rawValue {
-                return Importance.important
-            } else {
-                return Importance.important
-            }
-        }
-    }
 }
 
 extension ToDoItem {
