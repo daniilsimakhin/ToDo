@@ -32,7 +32,14 @@ class FileCache: FileCacheDelegate{
         }) {
             item = ToDoItem(id: UUID().uuidString, text: item.text, importance: item.importance, deadline: item.deadline, isComplete: item.isComplete, dateCreated: item.dateCreated, dateChanged: item.dateChanged)
         }
-        toDoItems.append(item)
+        if item.importance == .important {
+            toDoItems.insert(item, at: 0)
+        } else if item.importance == .unimportant {
+            toDoItems.insert(item, at: toDoItems.count)
+        } else {
+            let index = toDoItems.reduce(0) { $1.importance == .important ? $0 + 1 : $0 + 0 }
+            toDoItems.insert(item, at: index)
+        }
     }
     
     func addNewItem(item: ToDoItem, indexPath: IndexPath) {
