@@ -19,7 +19,7 @@ protocol FileCacheDelegate {
     func loadItems()
 }
 
-class FileCache: FileCacheDelegate{
+class FileCache: FileCacheDelegate {
     
     var toDoItems = [ToDoItem]()
     

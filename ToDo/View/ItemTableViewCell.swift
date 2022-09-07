@@ -11,21 +11,20 @@ protocol TaskTableViewCellDelegate {
     func updateCell (check: Bool, item: ToDoItem)
 }
 
-class TaskTableViewCell: UITableViewCell {
+class ItemTableViewCell: UITableViewCell {
     
     var delegate: TaskTableViewCellDelegate?
     static var identifire = "TaskTableViewCell"
     var state = false
-    var callback: ((Bool) -> ())?
     var item: ToDoItem?
-    
+
     private var checkbox: UIButton = {
         let checkbox = UIButton()
         checkbox.tintColor = Constans.Colors.secondaryTextColor
         checkbox.addTarget(self,
                            action: #selector(checkboxPressedButton),
                            for: .touchUpInside)
-        let font = UIFont.systemFont(ofSize: 30, weight: .medium)
+        let font = UIFont.systemFont(ofSize: 20)
         let config = UIImage.SymbolConfiguration(font: font)
         let image = UIImage(systemName: "circle", withConfiguration: config)
         checkbox.setImage(image, for: .normal)
@@ -34,27 +33,44 @@ class TaskTableViewCell: UITableViewCell {
     }()
     private let stackView: UIStackView = {
         let stackView = UIStackView()
-        stackView.alignment = .fill
         stackView.axis = .vertical
+        stackView.alignment = .leading
         stackView.distribution = .fill
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
     private let title: UILabel = {
-        let text = UILabel()
-        text.text = String()
-        text.textColor = Constans.Colors.textColor
-        text.numberOfLines = 3
-        text.translatesAutoresizingMaskIntoConstraints = false
-        return text
+        let title = UILabel()
+        title.text = String()
+        title.textColor = Constans.Colors.textColor
+        title.numberOfLines = 1
+        return title
+    }()
+    private let dateStackView: UIStackView = {
+        let dateStackView = UIStackView()
+        dateStackView.axis = .horizontal
+        dateStackView.alignment = .leading
+        dateStackView.distribution = .fill
+        dateStackView.spacing = 2
+        dateStackView.translatesAutoresizingMaskIntoConstraints = false
+        dateStackView.isHidden = true
+        return dateStackView
+    }()
+    private let dateImage: UIImageView = {
+        let dateImage = UIImageView()
+        let font = UIFont.systemFont(ofSize: 15)
+        let config = UIImage.SymbolConfiguration(font: font)
+        let image = UIImage(systemName: "calendar", withConfiguration: config)
+        dateImage.image = image
+        dateImage.tintColor = Constans.Colors.secondaryTextColor
+        return dateImage
     }()
     private let dateTitle: UILabel = {
-        let date = UILabel()
-        date.text = String()
-        date.textColor = Constans.Colors.secondaryTextColor
-        date.isHidden = true
-        date.translatesAutoresizingMaskIntoConstraints = false
-        return date
+        let dateTitle = UILabel()
+        dateTitle.text = String()
+        dateTitle.font = .systemFont(ofSize: 15)
+        dateTitle.textColor = Constans.Colors.secondaryTextColor
+        return dateTitle
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -68,6 +84,7 @@ class TaskTableViewCell: UITableViewCell {
     
     @objc func checkboxPressedButton(sender: UIButton!) {
         changeStateCheckbox(!state)
+        delegate?.updateCell(check: state, item: item!)
     }
     
     func configure(item: ToDoItem) {
@@ -84,18 +101,28 @@ class TaskTableViewCell: UITableViewCell {
             
             let date: NSDate? = dateFormatterGet.date(from: dateFormatterGet.string(from: deadline)) as NSDate?
             
-            dateTitle.isHidden = false
+            dateStackView.isHidden = false
             dateTitle.text = dateFormatterPrint.string(from: date! as Date)
         } else {
-            dateTitle.isHidden = true
+            dateStackView.isHidden = true
             dateTitle.text = nil
+        }
+        
+        switch item.importance {
+        case .unimportant:
+            title.text = "↓" + title.text!
+            break
+        case .ordinary:
+            break
+        case .important:
+            title.text = "‼️" + title.text!
+            break
         }
     }
     
     func changeStateCheckbox(_ check: Bool) {
         state = check
-        delegate?.updateCell(check: state, item: item!)
-        let font = UIFont.systemFont(ofSize: 30, weight: .medium)
+        let font = UIFont.systemFont(ofSize: 20)
         let config = UIImage.SymbolConfiguration(font: font)
         
         if state {
@@ -127,24 +154,23 @@ class TaskTableViewCell: UITableViewCell {
     
     private func setupUI() {
         accessoryType = .disclosureIndicator
-        
+        self.backgroundColor = Constans.Colors.mainViewColor
+    
         contentView.addSubview(checkbox)
         contentView.addSubview(stackView)
         stackView.addArrangedSubview(title)
-        stackView.addArrangedSubview(dateTitle)
+        stackView.addArrangedSubview(dateStackView)
+        dateStackView.addArrangedSubview(dateImage)
+        dateStackView.addArrangedSubview(dateTitle)
         
         NSLayoutConstraint.activate([
             checkbox.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             checkbox.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
-            checkbox.heightAnchor.constraint(equalToConstant: 25),
-            checkbox.widthAnchor.constraint(equalToConstant: 25),
 
             stackView.leadingAnchor.constraint(equalTo: checkbox.trailingAnchor, constant: 10),
-            stackView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
-
-            contentView.topAnchor.constraint(lessThanOrEqualTo: stackView.topAnchor, constant: 15),
-            contentView.bottomAnchor.constraint(greaterThanOrEqualTo: stackView.bottomAnchor, constant: 15)
+            stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
+            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
         ])
     }
 }

@@ -7,13 +7,15 @@
 
 import UIKit
 
-protocol TaskHeaderViewDelegate {
-    func showButton(_ completedTasksHidden: Bool)
+protocol TaskTableViewHeaderFooterViewDelegate {
+    func showButton(_ check: Bool)
 }
 
-class TaskTableViewHeaderFooterView: UITableViewHeaderFooterView {
+class ItemTableViewHeaderFooterView: UITableViewHeaderFooterView {
     
-    var delegate: TaskHeaderViewDelegate?
+    static let identifire = "TaskTableViewHeaderFooterView"
+    
+    var delegate: TaskTableViewHeaderFooterViewDelegate?
     
     var completedTaskCount = 0 {
         didSet {
@@ -25,7 +27,7 @@ class TaskTableViewHeaderFooterView: UITableViewHeaderFooterView {
 
     private let title: UILabel = {
         let title = UILabel()
-        title.text = "Выполнено - 0"
+        title.text = "Выполнено - $"
         title.textColor = Constans.Colors.secondaryTextColor
         title.textAlignment = .left
         title.font = .systemFont(ofSize: 15, weight: .regular)
@@ -52,20 +54,28 @@ class TaskTableViewHeaderFooterView: UITableViewHeaderFooterView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupUI() {
-        self.addSubview(showButton)
-        self.addSubview(title)
-        
+    private func setupUI() {
+        contentView.addSubview(showButton)
+        contentView.addSubview(title)
         NSLayoutConstraint.activate([
-            title.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 30),
-            title.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            title.trailingAnchor.constraint(equalTo: showButton.leadingAnchor),
+            title.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
+//            title.trailingAnchor.constraint(equalTo: showButton.leadingAnchor, constant: -10),
             title.heightAnchor.constraint(equalTo: showButton.heightAnchor),
             
-            showButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -30),
-            showButton.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            showButton.widthAnchor.constraint(equalToConstant: 100)
+            showButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
+            //showButton.widthAnchor.constraint(equalToConstant: 80),
+            showButton.topAnchor.constraint(equalTo: contentView.topAnchor),
+            showButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
         ])
+    }
+    
+    private func setTasksHidden(state: Bool) {
+        compeletedTasksHidden = state
+        if compeletedTasksHidden {
+            showButton.setTitle("Показать", for: .normal)
+        } else {
+            showButton.setTitle("Cкрыть", for: .normal)
+        }
     }
     
     func configure(compeletedTask: Int, isHidden: Bool) {
@@ -76,15 +86,6 @@ class TaskTableViewHeaderFooterView: UITableViewHeaderFooterView {
     
     @objc func showButtonPressed(sender: UIButton!) {
         setTasksHidden(state: !compeletedTasksHidden)
-    }
-    
-    func setTasksHidden(state: Bool) {
-        compeletedTasksHidden = state
         delegate?.showButton(compeletedTasksHidden)
-        if compeletedTasksHidden {
-            showButton.setTitle("Показать", for: .normal)
-        } else {
-            showButton.setTitle("Cкрыть", for: .normal)
-        }
     }
 }
