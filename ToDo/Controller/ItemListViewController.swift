@@ -10,60 +10,65 @@ import UIKit
 final class ItemListViewController: UIViewController {
     
     var fileCache = FileCache()
-    var numberCompletedTasks = 0
-    var completedTasksHidden = false
+    var numberCompletedItems = 0
+    var completedItemsHidden = false
     
     private var tableView = UITableView()
     
-    private let addTaskButton: UIButton = {
-        let button = UIButton()
-        button.backgroundColor = Constans.Colors.navBarItemColor
-        button.tintColor = .white
+    private let addItemButton: UIButton = {
+        let addItemButton = UIButton()
+        addItemButton.backgroundColor = Constans.Colors.navBarItemColor
+        addItemButton.tintColor = .white
         
         let font = UIFont.systemFont(ofSize: 30, weight: .semibold)
         let config = UIImage.SymbolConfiguration(font: font)
         let image = UIImage(systemName: "plus", withConfiguration: config)
-        button.setImage(image, for: .normal)
+        addItemButton.setImage(image, for: .normal)
         
-        button.layer.cornerRadius = 25
-        button.layer.shadowColor = UIColor.black.cgColor
-        button.layer.shadowOffset = CGSize(width: 0, height: 5)
-        button.layer.shadowRadius = 5
-        button.layer.shadowOpacity = 0.4
-        button.layer.masksToBounds = false
+        addItemButton.layer.cornerRadius = 25
+        addItemButton.layer.shadowColor = UIColor.black.cgColor
+        addItemButton.layer.shadowOffset = CGSize(width: 0, height: 5)
+        addItemButton.layer.shadowRadius = 5
+        addItemButton.layer.shadowOpacity = 0.4
+        addItemButton.layer.masksToBounds = false
         
-        button.addTarget(self, action: #selector(addTaskButtonPressed), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
+        addItemButton.addTarget(self, action: #selector(addItemButtonPressed), for: .touchUpInside)
+        addItemButton.translatesAutoresizingMaskIntoConstraints = false
+        return addItemButton
     }()
-//MARK: - ViewController functions
+    //MARK: - ViewController functions
     override func viewDidLoad() {
         super.viewDidLoad()
         fileCache.loadItems()
         createTableView()
         setupUI()
+        addObservers()
     }
-//MARK: - Private functions
+    
+    deinit {
+        removeObservers()
+    }
+    //MARK: - Private functions
     private func setupUI() {
-        title = Constans.Texts.titleTaskList
+        title = Constans.Texts.titleItemList
         navigationController?.navigationBar.prefersLargeTitles = true
         view.backgroundColor = Constans.Colors.backgroundColor
         
         view.addSubview(tableView)
-        view.addSubview(addTaskButton)
+        view.addSubview(addItemButton)
         
         NSLayoutConstraint.activate([
-            addTaskButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            addTaskButton.heightAnchor.constraint(equalToConstant: 50),
-            addTaskButton.widthAnchor.constraint(equalToConstant: 50),
-            addTaskButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -25)
+            addItemButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            addItemButton.heightAnchor.constraint(equalToConstant: 50),
+            addItemButton.widthAnchor.constraint(equalToConstant: 50),
+            addItemButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -25)
         ])
     }
     
     private func createTableView() {
         tableView = UITableView(frame: view.frame, style: .insetGrouped)
-        tableView.register(TaskTableViewCell.self, forCellReuseIdentifier: TaskTableViewCell.identifire)
-        tableView.register(TaskTableViewHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: TaskTableViewHeaderFooterView.identifire)
+        tableView.register(ItemTableViewCell.self, forCellReuseIdentifier: ItemTableViewCell.identifire)
+        tableView.register(ItemTableViewHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: ItemTableViewHeaderFooterView.identifire)
         tableView.delegate = self
         tableView.dataSource = self
         tableView.rowHeight = UITableView.automaticDimension
@@ -90,9 +95,9 @@ final class ItemListViewController: UIViewController {
         }
         tableView.reloadData()
     }
-//MARK: - @objc functions
-    @objc func addTaskButtonPressed(sender: UIButton!) {
-        let addingVC = AddingTaskViewController()
+    //MARK: - @objc functions
+    @objc func addItemButtonPressed(sender: UIButton!) {
+        let addingVC = AddingItemViewController()
         addingVC.delegate = self
         addingVC.configure(item: nil, indexPath: nil)
         let navVc = UINavigationController(rootViewController: addingVC)
@@ -100,8 +105,8 @@ final class ItemListViewController: UIViewController {
         present(navVc, animated: true)
     }
 }
-//MARK: - AddingTaskViewControllerDelegate
-extension ItemListViewController: AddingTaskViewControllerDelegate {
+//MARK: - AddingItemViewControllerDelegate
+extension ItemListViewController: AddingItemViewControllerDelegate {
     func deleteCurrentItem(id: String) {
         fileCache.loadItems()
         fileCache.deleteItem(id: id)
@@ -112,6 +117,7 @@ extension ItemListViewController: AddingTaskViewControllerDelegate {
     func saveNewItem(newItem: ToDoItem) {
         fileCache.loadItems()
         fileCache.addNewItem(item: newItem)
+        NotificationService.shared.scheduleNotification(newItem)
         fileCache.saveItems()
         tableView.reloadData()
     }
@@ -122,15 +128,18 @@ extension ItemListViewController: AddingTaskViewControllerDelegate {
         if oldItem.importance == newItem.importance {
             fileCache.addNewItem(item: newItem, indexPath: indexPath)
         } else {
-            fileCache.addNewItem(item: newItem)            
+            fileCache.addNewItem(item: newItem)
+        }
+        if !newItem.isComplete {
+            NotificationService.shared.scheduleNotification(newItem)
         }
         fileCache.saveItems()
         tableView.reloadData()
     }
 }
 
-//MARK: - TaskTableViewCellDelegate
-extension ItemListViewController: TaskTableViewCellDelegate {
+//MARK: - ItemTableViewCellDelegate
+extension ItemListViewController: ItemTableViewCellDelegate {
     func updateCell(check: Bool, item: ToDoItem) {
         fileCache.loadItems()
         for (index, value) in fileCache.toDoItems.enumerated() {
@@ -139,13 +148,22 @@ extension ItemListViewController: TaskTableViewCellDelegate {
                 fileCache.saveItems()
             }
         }
+        if let deadline = item.deadline {
+            if check {
+                NotificationService.shared.removeScheduledNotification(item)
+            } else {
+                if deadline > Date() {
+                    NotificationService.shared.scheduleNotification(item)
+                }
+            }
+        }
         tableView.reloadData()
     }
 }
-//MARK: - TaskHeaderViewDelegate
-extension ItemListViewController: TaskTableViewHeaderFooterViewDelegate {
+//MARK: - ItemTableViewHeaderFooterViewDelegate
+extension ItemListViewController: ItemTableViewHeaderFooterViewDelegate {
     func showButton(_ check: Bool) {
-        completedTasksHidden = check
+        completedItemsHidden = check
         tableView.reloadData()
     }
 }
@@ -153,7 +171,7 @@ extension ItemListViewController: TaskTableViewHeaderFooterViewDelegate {
 extension ItemListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         fileCache.loadItems()
-        if completedTasksHidden {
+        if completedItemsHidden {
             var indexies = [String]()
             for item in fileCache.toDoItems {
                 if item.isComplete {
@@ -163,16 +181,16 @@ extension ItemListViewController: UITableViewDataSource {
             for index in indexies {
                 fileCache.deleteItem(id: index)
             }
-            numberCompletedTasks = indexies.count
+            numberCompletedItems = indexies.count
             return fileCache.toDoItems.count
         } else {
-            numberCompletedTasks = fileCache.toDoItems.reduce(0) { $1.isComplete ? $0 + 1 : $0 + 0 }
+            numberCompletedItems = fileCache.toDoItems.reduce(0) { $1.isComplete ? $0 + 1 : $0 + 0 }
             return fileCache.toDoItems.count
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: TaskTableViewCell.identifire, for: indexPath) as? TaskTableViewCell else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: ItemTableViewCell.identifire, for: indexPath) as? ItemTableViewCell else { return UITableViewCell() }
         let item = fileCache.toDoItems[indexPath.row]
         cell.delegate = self
         cell.configure(item: item)
@@ -187,8 +205,8 @@ extension ItemListViewController: UITableViewDataSource {
 extension ItemListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section == 0 {
-            guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: TaskTableViewHeaderFooterView.identifire) as? TaskTableViewHeaderFooterView else { return UIView() }
-            headerView.configure(compeletedTask: numberCompletedTasks, isHidden: completedTasksHidden)
+            guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: ItemTableViewHeaderFooterView.identifire) as? ItemTableViewHeaderFooterView else { return UIView() }
+            headerView.configure(compeletedItem: numberCompletedItems, isHidden: completedItemsHidden)
             headerView.delegate = self
             return headerView
         } else {
@@ -203,7 +221,7 @@ extension ItemListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let item = fileCache.toDoItems[indexPath.row]
-        let addingVC = AddingTaskViewController()
+        let addingVC = AddingItemViewController()
         addingVC.delegate = self
         addingVC.configure(item: item, indexPath: indexPath)
         let navVc = UINavigationController(rootViewController: addingVC)
@@ -237,5 +255,19 @@ extension ItemListViewController: UITableViewDelegate {
         let swipeConfiguration = UISwipeActionsConfiguration(actions: [doneAction])
         swipeConfiguration.performsFirstActionWithFullSwipe = true
         return swipeConfiguration
+    }
+}
+//MARK: - DidBecomeActiveNotification
+extension ItemListViewController {
+    fileprivate func addObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(applicationDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
+    }
+    
+    fileprivate func removeObservers() {
+        NotificationCenter.default.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
+    }
+    
+    @objc fileprivate func applicationDidBecomeActive() {
+        tableView.reloadData()
     }
 }

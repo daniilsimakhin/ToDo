@@ -1,5 +1,5 @@
 //
-//  TaskHeaderView.swift
+//  ItemTableViewHeaderFooterView.swift
 //  ToDo
 //
 //  Created by Даниил Симахин on 18.08.2022.
@@ -7,23 +7,23 @@
 
 import UIKit
 
-protocol TaskTableViewHeaderFooterViewDelegate {
+protocol ItemTableViewHeaderFooterViewDelegate {
     func showButton(_ check: Bool)
 }
 
 class ItemTableViewHeaderFooterView: UITableViewHeaderFooterView {
     
-    static let identifire = "TaskTableViewHeaderFooterView"
+    static let identifire = "ItemTableViewHeaderFooterView"
     
-    var delegate: TaskTableViewHeaderFooterViewDelegate?
+    var delegate: ItemTableViewHeaderFooterViewDelegate?
     
-    var completedTaskCount = 0 {
+    var completedItemCount = 0 {
         didSet {
-            title.text = "Выполнено - \(completedTaskCount)"
+            title.text = "Выполнено - \(completedItemCount)"
         }
     }
     
-    var compeletedTasksHidden = false
+    var compeletedItemsHidden = false
 
     private let title: UILabel = {
         let title = UILabel()
@@ -69,23 +69,23 @@ class ItemTableViewHeaderFooterView: UITableViewHeaderFooterView {
         ])
     }
     
-    private func setTasksHidden(state: Bool) {
-        compeletedTasksHidden = state
-        if compeletedTasksHidden {
+    private func setItemsHidden(state: Bool) {
+        compeletedItemsHidden = state
+        if compeletedItemsHidden {
             showButton.setTitle("Показать", for: .normal)
         } else {
             showButton.setTitle("Cкрыть", for: .normal)
         }
     }
     
-    func configure(compeletedTask: Int, isHidden: Bool) {
-        title.text = "Выполнено - \(compeletedTask)"
-        completedTaskCount = compeletedTask
-        setTasksHidden(state: isHidden)
+    func configure(compeletedItem: Int, isHidden: Bool) {
+        title.text = "Выполнено - \(compeletedItem)"
+        completedItemCount = compeletedItem
+        setItemsHidden(state: isHidden)
     }
     
     @objc func showButtonPressed(sender: UIButton!) {
-        setTasksHidden(state: !compeletedTasksHidden)
-        delegate?.showButton(compeletedTasksHidden)
+        setItemsHidden(state: !compeletedItemsHidden)
+        delegate?.showButton(compeletedItemsHidden)
     }
 }

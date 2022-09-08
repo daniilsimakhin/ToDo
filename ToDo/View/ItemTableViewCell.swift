@@ -1,5 +1,5 @@
 //
-//  TaskTableViewCell.swift
+//  ItemTableViewCell.swift
 //  ToDo
 //
 //  Created by Даниил Симахин on 17.08.2022.
@@ -7,14 +7,14 @@
 
 import UIKit
 
-protocol TaskTableViewCellDelegate {
+protocol ItemTableViewCellDelegate {
     func updateCell (check: Bool, item: ToDoItem)
 }
 
 class ItemTableViewCell: UITableViewCell {
     
-    var delegate: TaskTableViewCellDelegate?
-    static var identifire = "TaskTableViewCell"
+    var delegate: ItemTableViewCellDelegate?
+    static var identifire = "ItemTableViewCellDelegate"
     var state = false
     var item: ToDoItem?
 
@@ -43,7 +43,7 @@ class ItemTableViewCell: UITableViewCell {
         let title = UILabel()
         title.text = String()
         title.textColor = Constans.Colors.textColor
-        title.numberOfLines = 1
+        title.numberOfLines = 3
         return title
     }()
     private let dateStackView: UIStackView = {
