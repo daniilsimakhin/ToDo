@@ -1,5 +1,5 @@
 //
-//  AddingTaskViewController.swift
+//  AddingItemViewController.swift
 //  ToDo
 //
 //  Created by Даниил Симахин on 17.08.2022.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol AddingTaskViewControllerDelegate {
+protocol AddingItemViewControllerDelegate {
     func saveNewItem(newItem: ToDoItem)
     func saveChangedItem(oldItem: ToDoItem, newItem: ToDoItem, indexPath: IndexPath)
     func deleteCurrentItem(id: String)
@@ -18,7 +18,7 @@ final class AddingItemViewController: UIViewController {
     private var item: ToDoItem?
     private var indexPath: IndexPath?
     private var keyboardIsHidden = true
-    var delegate: AddingTaskViewControllerDelegate?
+    var delegate: AddingItemViewControllerDelegate?
     
     private var contentSize: CGSize {
         if keyboardIsHidden {
@@ -149,13 +149,28 @@ final class AddingItemViewController: UIViewController {
     }
     //MARK: - Private functions
     private func setSwitch(state: Bool) {
-        dateSwitch.isOn = state
+        dateSwitch.setOn(state, animated: true)
         if dateSwitch.isOn {
+            NotificationService.shared.requestAuthorization { granted in
+                DispatchQueue.main.async {
+                    if !granted {
+                        let ac = UIAlertController(title: "Уведомления отключены", message: "Чтобы использовать напоминания необходимо включить их в настройках", preferredStyle: .alert)
+                        ac.addAction(UIAlertAction(title: "Перейти в настройки", style: .default, handler: { _ in
+                            guard let settingsURL = URL(string: UIApplication.openSettingsURLString) else { return }
+                            if UIApplication.shared.canOpenURL(settingsURL) {
+                                UIApplication.shared.open(settingsURL) { _ in }
+                            }
+                        }))
+                        ac.addAction(UIAlertAction(title: "Отмена", style: .default, handler: { _ in
+                            self.setSwitch(state: false)
+                        }))
+                        self.present(ac, animated: true)
+                    }
+                }
+            }
             datePicker.isHidden = false
             let date = Date()
             datePicker.date = date.addingTimeInterval(TimeInterval(24 * 60 * 60))
-            NotificationService.shared.requestAuthorization()
-
         } else {
             datePicker.isHidden = true
         }
@@ -163,10 +178,10 @@ final class AddingItemViewController: UIViewController {
     
     private func setupUI() {
         scrollView.delegate = self
-        title = Constans.Texts.titleAddingTask
+        title = Constans.Texts.titleAddingItem
         view.backgroundColor = Constans.Colors.backgroundColor
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: Constans.Texts.save, style: .done, target: self, action: #selector(saveCreatedTask))
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: Constans.Texts.cancel, style: .plain, target: self, action: #selector(cancelCreatingTask))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: Constans.Texts.save, style: .done, target: self, action: #selector(saveCreatedItem))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: Constans.Texts.cancel, style: .plain, target: self, action: #selector(cancelCreatingItem))
     }
     
     private func setConstraints() {
@@ -227,6 +242,22 @@ final class AddingItemViewController: UIViewController {
             deleteButton.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -20),
         ])
     }
+    
+    private func invalidDateAlert() {
+        let alert = UIAlertController(title: "Ошибка", message: "Дата указана некорректно, отключите ее или укажите другую.", preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "Отключить дату", style: .default) { action in
+            self.setSwitch(state: false)
+        })
+        
+        alert.addAction(UIAlertAction(title: "Указать другую дату", style: .default) { action in
+            DispatchQueue.main.async {
+                self.datePicker.setDate(Date().addingTimeInterval(60 * 24 * 24), animated: true)
+            }
+        })
+        
+        self.present(alert, animated: true)
+    }
     //MARK: - Public functions
     func configure(item: ToDoItem?, indexPath: IndexPath?) {
         self.indexPath = indexPath
@@ -269,7 +300,11 @@ final class AddingItemViewController: UIViewController {
         }
     }
     
-    @objc private func saveCreatedTask() {
+    @objc private func saveCreatedItem() {
+        if dateSwitch.isOn && datePicker.date <= Date() {
+            invalidDateAlert()
+            return
+        }
         if let oldItem = self.item {
             let newItem = ToDoItem(id: oldItem.id,
                                    text: textView.text,
@@ -295,7 +330,7 @@ final class AddingItemViewController: UIViewController {
         }
     }
     
-    @objc private func cancelCreatingTask() {
+    @objc private func cancelCreatingItem() {
         dismiss(animated: true)
     }
 }
