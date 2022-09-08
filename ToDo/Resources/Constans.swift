@@ -21,13 +21,13 @@ enum Constans {
     }
     
     enum Texts {
-        static let titleTaskList = "Мои дела"
-        static let titleAddingTask = "Дело"
+        static let titleItemList = "Мои дела"
+        static let titleAddingItem = "Дело"
         
         static let importance = "Важность"
         static let makeUp = "Сделать до"
         
-        static let placeholderForAddTask = "Что надо сделать?"
+        static let placeholderForAddItem = "Что надо сделать?"
         
         static let save = "Сохранить"
         static let cancel = "Отменить"
