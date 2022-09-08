@@ -8,13 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		A501280C28A974550042B166 /* ToDoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A501280B28A974550042B166 /* ToDoTests.swift */; };
-		A501281328AC06F00042B166 /* AddingTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A501281228AC06F00042B166 /* AddingTaskViewController.swift */; };
-		A501281528AD3A260042B166 /* TaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A501281428AD3A260042B166 /* TaskTableViewCell.swift */; };
-		A501281928AE87850042B166 /* TaskHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A501281828AE87850042B166 /* TaskHeaderView.swift */; };
+		A501281328AC06F00042B166 /* AddingItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A501281228AC06F00042B166 /* AddingItemViewController.swift */; };
+		A501281528AD3A260042B166 /* ItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A501281428AD3A260042B166 /* ItemTableViewCell.swift */; };
+		A501281928AE87850042B166 /* ItemTableViewHeaderFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A501281828AE87850042B166 /* ItemTableViewHeaderFooterView.swift */; };
 		A501281C28AFF4870042B166 /* Constans.swift in Sources */ = {isa = PBXBuildFile; fileRef = A501281B28AFF4870042B166 /* Constans.swift */; };
+		A501281F28BD32510042B166 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A501281E28BD32510042B166 /* NotificationService.swift */; };
 		A5FF884028A55DBC00DEE875 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5FF883F28A55DBC00DEE875 /* AppDelegate.swift */; };
 		A5FF884228A55DBC00DEE875 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5FF884128A55DBC00DEE875 /* SceneDelegate.swift */; };
-		A5FF884428A55DBC00DEE875 /* TaskListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5FF884328A55DBC00DEE875 /* TaskListViewController.swift */; };
+		A5FF884428A55DBC00DEE875 /* ItemListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5FF884328A55DBC00DEE875 /* ItemListViewController.swift */; };
 		A5FF884A28A55DBC00DEE875 /* ToDo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A5FF884828A55DBC00DEE875 /* ToDo.xcdatamodeld */; };
 		A5FF884C28A55DBD00DEE875 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A5FF884B28A55DBD00DEE875 /* Assets.xcassets */; };
 		A5FF884F28A55DBD00DEE875 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A5FF884D28A55DBD00DEE875 /* LaunchScreen.storyboard */; };
@@ -35,14 +36,15 @@
 /* Begin PBXFileReference section */
 		A501280928A974550042B166 /* ToDoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ToDoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A501280B28A974550042B166 /* ToDoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoTests.swift; sourceTree = "<group>"; };
-		A501281228AC06F00042B166 /* AddingTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddingTaskViewController.swift; sourceTree = "<group>"; };
-		A501281428AD3A260042B166 /* TaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableViewCell.swift; sourceTree = "<group>"; };
-		A501281828AE87850042B166 /* TaskHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskHeaderView.swift; sourceTree = "<group>"; };
+		A501281228AC06F00042B166 /* AddingItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddingItemViewController.swift; sourceTree = "<group>"; };
+		A501281428AD3A260042B166 /* ItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTableViewCell.swift; sourceTree = "<group>"; };
+		A501281828AE87850042B166 /* ItemTableViewHeaderFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTableViewHeaderFooterView.swift; sourceTree = "<group>"; };
 		A501281B28AFF4870042B166 /* Constans.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constans.swift; sourceTree = "<group>"; };
+		A501281E28BD32510042B166 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		A5FF883C28A55DBC00DEE875 /* ToDo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToDo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5FF883F28A55DBC00DEE875 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A5FF884128A55DBC00DEE875 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		A5FF884328A55DBC00DEE875 /* TaskListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListViewController.swift; sourceTree = "<group>"; };
+		A5FF884328A55DBC00DEE875 /* ItemListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemListViewController.swift; sourceTree = "<group>"; };
 		A5FF884928A55DBC00DEE875 /* ToDo.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ToDo.xcdatamodel; sourceTree = "<group>"; };
 		A5FF884B28A55DBD00DEE875 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A5FF884E28A55DBD00DEE875 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -77,6 +79,14 @@
 			path = ToDoTests;
 			sourceTree = "<group>";
 		};
+		A501281D28BD31DF0042B166 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				A501281E28BD32510042B166 /* NotificationService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		A5FF883328A55DBC00DEE875 = {
 			isa = PBXGroup;
 			children = (
@@ -98,6 +108,7 @@
 		A5FF883E28A55DBC00DEE875 /* ToDo */ = {
 			isa = PBXGroup;
 			children = (
+				A501281D28BD31DF0042B166 /* Services */,
 				A5FF885A28A55E2400DEE875 /* Resources */,
 				A5FF885928A55DFB00DEE875 /* Application */,
 				A5FF885828A55DE400DEE875 /* Controller */,
@@ -122,8 +133,8 @@
 			isa = PBXGroup;
 			children = (
 				A5FF884D28A55DBD00DEE875 /* LaunchScreen.storyboard */,
-				A501281428AD3A260042B166 /* TaskTableViewCell.swift */,
-				A501281828AE87850042B166 /* TaskHeaderView.swift */,
+				A501281428AD3A260042B166 /* ItemTableViewCell.swift */,
+				A501281828AE87850042B166 /* ItemTableViewHeaderFooterView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -131,8 +142,8 @@
 		A5FF885828A55DE400DEE875 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				A5FF884328A55DBC00DEE875 /* TaskListViewController.swift */,
-				A501281228AC06F00042B166 /* AddingTaskViewController.swift */,
+				A5FF884328A55DBC00DEE875 /* ItemListViewController.swift */,
+				A501281228AC06F00042B166 /* AddingItemViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -263,15 +274,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A501281528AD3A260042B166 /* TaskTableViewCell.swift in Sources */,
-				A5FF884428A55DBC00DEE875 /* TaskListViewController.swift in Sources */,
+				A501281528AD3A260042B166 /* ItemTableViewCell.swift in Sources */,
+				A501281F28BD32510042B166 /* NotificationService.swift in Sources */,
+				A5FF884428A55DBC00DEE875 /* ItemListViewController.swift in Sources */,
 				A501281C28AFF4870042B166 /* Constans.swift in Sources */,
 				A5FF884028A55DBC00DEE875 /* AppDelegate.swift in Sources */,
 				A5FF885C28A55E5900DEE875 /* ToDoItem.swift in Sources */,
-				A501281928AE87850042B166 /* TaskHeaderView.swift in Sources */,
+				A501281928AE87850042B166 /* ItemTableViewHeaderFooterView.swift in Sources */,
 				A5FF884228A55DBC00DEE875 /* SceneDelegate.swift in Sources */,
 				A5FF885E28A69BC100DEE875 /* FileCache.swift in Sources */,
-				A501281328AC06F00042B166 /* AddingTaskViewController.swift in Sources */,
+				A501281328AC06F00042B166 /* AddingItemViewController.swift in Sources */,
 				A5FF884A28A55DBC00DEE875 /* ToDo.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -460,7 +472,7 @@
 				INFOPLIST_FILE = ToDo/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -489,7 +501,7 @@
 				INFOPLIST_FILE = ToDo/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
