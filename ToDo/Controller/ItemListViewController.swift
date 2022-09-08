@@ -117,7 +117,9 @@ extension ItemListViewController: AddingItemViewControllerDelegate {
     func saveNewItem(newItem: ToDoItem) {
         fileCache.loadItems()
         fileCache.addNewItem(item: newItem)
-        NotificationService.shared.scheduleNotification(newItem)
+        if newItem.deadline != nil {
+            NotificationService.shared.scheduleNotification(newItem)
+        }
         fileCache.saveItems()
         tableView.reloadData()
     }
@@ -130,7 +132,7 @@ extension ItemListViewController: AddingItemViewControllerDelegate {
         } else {
             fileCache.addNewItem(item: newItem)
         }
-        if !newItem.isComplete {
+        if !newItem.isComplete && newItem.deadline != nil {
             NotificationService.shared.scheduleNotification(newItem)
         }
         fileCache.saveItems()
