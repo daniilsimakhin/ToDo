@@ -24,7 +24,7 @@
   <img src = "https://media.githubusercontent.com/media/daniilsimakhin/ToDo/main/sources/IMG_2722.PNG">
 </p>
 <p align="center">
-<img width="180" alt="Screenshot 2022-06-05 at 23 50 57" src="https://media.githubusercontent.com/media/daniilsimakhin/ToDo/main/sources/IMG_2722.PNG"><img width="180" alt="Screenshot 2022-06-05 at 23 51 30" src="https://media.githubusercontent.com/media/daniilsimakhin/ToDo/main/sources/IMG_2723.PNG"><img width="180" alt="Screenshot 2022-06-05 at 23 51 45" src="https://media.githubusercontent.com/media/daniilsimakhin/ToDo/main/sources/IMG_2724.PNG">
+<img width="180" alt="Screenshot 2022-06-05 at 23 50 57" src="https://media.githubusercontent.com/media/daniilsimakhin/ToDo/main/sources/IMG_2722.PNG">               <img width="180" alt="Screenshot 2022-06-05 at 23 51 30" src="https://media.githubusercontent.com/media/daniilsimakhin/ToDo/main/sources/IMG_2723.PNG"><img width="180" alt="Screenshot 2022-06-05 at 23 51 45" src="https://media.githubusercontent.com/media/daniilsimakhin/ToDo/main/sources/IMG_2724.PNG">
 </p>
 <p align="center">
   <img width="180" alt="Screenshot 2022-06-05 at 23 50 57" src="https://media.githubusercontent.com/media/daniilsimakhin/ToDo/main/sources/IMG_2725.PNG"><img width="180" alt="Screenshot 2022-06-05 at 23 51 30" src="https://media.githubusercontent.com/media/daniilsimakhin/ToDo/main/sources/IMG_2726.PNG">
