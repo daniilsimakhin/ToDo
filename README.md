@@ -44,8 +44,8 @@
     <source src="https://user-images.githubusercontent.com/52642856/189374753-61dad22c-0a68-4ec8-9497-f61f81f37c3a.MP4" type="video/mp4">
   </video> 
 </p>
-
+<p align="center">
+  https://user-images.githubusercontent.com/52642856/189383728-b297f714-75b7-442a-9b9d-67d856036913.MP4
+</p>
 
 https://user-images.githubusercontent.com/52642856/189383728-b297f714-75b7-442a-9b9d-67d856036913.MP4
-
-[<img src="https://user-images.githubusercontent.com/52642856/189383728-b297f714-75b7-442a-9b9d-67d856036913.MP4" width="50%">](https://youtu.be/<VIDEO ID>)
