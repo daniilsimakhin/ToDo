@@ -24,5 +24,12 @@
   <img src = "https://media.githubusercontent.com/media/daniilsimakhin/ToDo/main/sources/IMG_2722.PNG">
 </p>
 
+<img width="180" alt="Screenshot 2022-06-05 at 23 50 57" src="https://media.githubusercontent.com/media/daniilsimakhin/ToDo/main/sources/IMG_2722.PNG">
+<img width="180" alt="Screenshot 2022-06-05 at 23 51 30" src="https://media.githubusercontent.com/media/daniilsimakhin/ToDo/main/sources/IMG_2723.PNG">
+<img width="180" alt="Screenshot 2022-06-05 at 23 51 45" src="https://media.githubusercontent.com/media/daniilsimakhin/ToDo/main/sources/IMG_2724.PNG">
+
+<img width="180" alt="Screenshot 2022-06-05 at 23 50 57" src="https://media.githubusercontent.com/media/daniilsimakhin/ToDo/main/sources/IMG_2725.PNG">
+<img width="180" alt="Screenshot 2022-06-05 at 23 51 30" src="https://media.githubusercontent.com/media/daniilsimakhin/ToDo/main/sources/IMG_2726.PNG">
+
 ## Video
 [![Alt text for your video](https://github.com/daniilsimakhin/CryptoPair/blob/main/Source/Снимок%20экрана%202022-05-23%20в%2002.01.12.png)](https://youtu.be/QVYmPq3LMN8)
