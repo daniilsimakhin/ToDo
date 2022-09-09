@@ -48,4 +48,4 @@
 
 https://user-images.githubusercontent.com/52642856/189383728-b297f714-75b7-442a-9b9d-67d856036913.MP4
 
-<iframe width="180" height="480" src="https://user-images.githubusercontent.com/52642856/189383728-b297f714-75b7-442a-9b9d-67d856036913.MP4" frameborder="0" allowfullscreen></iframe>
+[<img src="https://user-images.githubusercontent.com/52642856/189383728-b297f714-75b7-442a-9b9d-67d856036913.MP4" width="50%">](https://youtu.be/<VIDEO ID>)
