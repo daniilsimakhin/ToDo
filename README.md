@@ -21,7 +21,7 @@
 * Protocols
 ## Screenshot
 <p align="center">
-  <img src = "https://media.githubusercontent.com/media/daniilsimakhin/ToDo/main/IMG_2722.png/>
+  <img src = "https://media.githubusercontent.com/media/daniilsimakhin/ToDo/main/IMG_2722.png/">
 </p>
 
 ## Video
