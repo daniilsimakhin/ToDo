@@ -30,4 +30,4 @@
 </p>
 
 ## Video
-[![Alt text for your video](https://github.com/daniilsimakhin/CryptoPair/blob/main/Source/Снимок%20экрана%202022-05-23%20в%2002.01.12.png)]("https://media.githubusercontent.com/media/daniilsimakhin/ToDo/main/sources/movie.MP4")
+[![Alt text for your video](https://github.com/daniilsimakhin/CryptoPair/blob/main/Source/Снимок%20экрана%202022-05-23%20в%2002.01.12.png)]("https://media.githubusercontent.com/media/daniilsimakhin/ToDo/main/sources/Movie.MP4")
