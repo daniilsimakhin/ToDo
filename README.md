@@ -1,8 +1,4 @@
-# ToDo (Список дел)
-## Описание
-* Обзор актуального курса различных криптовалют
-* Парсинг курса криптовалют из [https://www.coinapi.io](https://www.coinapi.io)
-* Выбор криптовалютной пары
+# ToDo
 ## Архитектура
 * MVC
 ## Основные функции
@@ -19,7 +15,7 @@
 * Singtone
 * Observers
 * Protocols
-## Screenshot
+## Screenshots
 
 <p align="center">
   <img width="180" alt="Screenshot" src="https://user-images.githubusercontent.com/52642856/189375713-9494b5f1-badc-40e3-aa9b-9c0bd2e269e0.PNG">
