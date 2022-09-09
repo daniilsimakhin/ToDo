@@ -30,7 +30,6 @@
 </p>
 
 ## Video
-
-https://user-images.githubusercontent.com/52642856/189374753-61dad22c-0a68-4ec8-9497-f61f81f37c3a.MP4
-
-khin/ToDo/main/sources/Movie.MP4")
+<p align="center">
+  https://user-images.githubusercontent.com/52642856/189374753-61dad22c-0a68-4ec8-9497-f61f81f37c3a.MP4
+</p>
