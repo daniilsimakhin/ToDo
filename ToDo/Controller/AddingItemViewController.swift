@@ -91,10 +91,10 @@ final class AddingItemViewController: UIViewController {
     }()
     private lazy var dateTitleStackView: UIStackView = {
         let dateTitleStackView = UIStackView()
-        dateTitleStackView.axis = .horizontal
-        dateTitleStackView.alignment = .center
+        dateTitleStackView.axis = .vertical
+        dateTitleStackView.alignment = .leading
         dateTitleStackView.distribution = .fill
-        dateTitleStackView.spacing = 10
+        dateTitleStackView.spacing = 3
         dateTitleStackView.translatesAutoresizingMaskIntoConstraints = false
         return dateTitleStackView
     }()
@@ -217,7 +217,6 @@ final class AddingItemViewController: UIViewController {
             stackView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 20),
             stackView.bottomAnchor.constraint(equalTo: deleteButton.topAnchor, constant: -20),
             stackView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -20),
-            stackView.heightAnchor.constraint(equalToConstant: 112),
             
             importanceView.heightAnchor.constraint(equalToConstant: 55),
             importanceLabel.centerYAnchor.constraint(equalTo: importanceView.centerYAnchor),
@@ -228,7 +227,8 @@ final class AddingItemViewController: UIViewController {
             importanceSegmentedControl.trailingAnchor.constraint(equalTo: importanceView.trailingAnchor, constant: -10),
             importanceSegmentedControl.widthAnchor.constraint(equalToConstant: view.frame.width / 3),
             
-            dateView.heightAnchor.constraint(equalToConstant: 55),
+            dateView.topAnchor.constraint(equalTo: dateTitleStackView.topAnchor, constant: -15),
+            dateView.bottomAnchor.constraint(equalTo: dateTitleStackView.bottomAnchor, constant: 15),
             
             dateSwitch.centerYAnchor.constraint(equalTo: dateView.centerYAnchor),
             dateSwitch.trailingAnchor.constraint(equalTo: dateView.trailingAnchor, constant: -10),
