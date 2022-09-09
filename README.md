@@ -22,11 +22,15 @@
 ## Screenshot
 
 <p align="center">
-<img width="180" alt="Screenshot 2022-06-05 at 23 50 57" src="https://media.githubusercontent.com/media/daniilsimakhin/ToDo/main/sources/IMG_2722.PNG">               <img width="180" alt="Screenshot 2022-06-05 at 23 51 30" src="https://media.githubusercontent.com/media/daniilsimakhin/ToDo/main/sources/IMG_2723.PNG">               <img width="180" alt="Screenshot 2022-06-05 at 23 51 45" src="https://media.githubusercontent.com/media/daniilsimakhin/ToDo/main/sources/IMG_2724.PNG">
+<img width="180" alt="Screenshot 2022-06-05 at 23 50 57" src="https://media.githubusercontent.com/media/daniilsimakhin/ToDo/main/sources/1.PNG">               <img width="180" alt="Screenshot 2022-06-05 at 23 51 30" src="https://media.githubusercontent.com/media/daniilsimakhin/ToDo/main/sources/2.PNG">               <img width="180" alt="Screenshot 2022-06-05 at 23 51 45" src="https://media.githubusercontent.com/media/daniilsimakhin/ToDo/main/sources/3.PNG">
 </p>
 
 <p align="center">
-  <img width="180" alt="Screenshot 2022-06-05 at 23 50 57" src="https://media.githubusercontent.com/media/daniilsimakhin/ToDo/main/sources/IMG_2725.PNG">               <img width="180" alt="Screenshot 2022-06-05 at 23 51 30" src="https://media.githubusercontent.com/media/daniilsimakhin/ToDo/main/sources/IMG_2726.PNG">
+  <img width="180" alt="Screenshot 2022-06-05 at 23 50 57" src="https://media.githubusercontent.com/media/daniilsimakhin/ToDo/main/sources/4.PNG">               <img width="180" alt="Screenshot 2022-06-05 at 23 51 30" src="https://media.githubusercontent.com/media/daniilsimakhin/ToDo/main/sources/5.PNG">               <img width="180" alt="Screenshot 2022-06-05 at 23 51 30" src="https://media.githubusercontent.com/media/daniilsimakhin/ToDo/main/sources/6.PNG">
+</p>
+
+<p align="center">
+  <img width="180" alt="Screenshot 2022-06-05 at 23 50 57" src="https://media.githubusercontent.com/media/daniilsimakhin/ToDo/main/sources/7.PNG">               <img width="180" alt="Screenshot 2022-06-05 at 23 51 30" src="https://media.githubusercontent.com/media/daniilsimakhin/ToDo/main/sources/8.PNG">               <img width="180" alt="Screenshot 2022-06-05 at 23 51 30" src="https://media.githubusercontent.com/media/daniilsimakhin/ToDo/main/sources/9.PNG"><img width="180" alt="Screenshot 2022-06-05 at 23 50 57" src="https://media.githubusercontent.com/media/daniilsimakhin/ToDo/main/sources/4.PNG">               <img width="180" alt="Screenshot 2022-06-05 at 23 51 30" src="https://media.githubusercontent.com/media/daniilsimakhin/ToDo/main/sources/5.PNG">               <img width="180" alt="Screenshot 2022-06-05 at 23 51 30" src="https://media.githubusercontent.com/media/daniilsimakhin/ToDo/main/sources/6.PNG">
 </p>
 ## Video
 [![Alt text for your video](https://github.com/daniilsimakhin/CryptoPair/blob/main/Source/Снимок%20экрана%202022-05-23%20в%2002.01.12.png)](https://youtu.be/QVYmPq3LMN8)
