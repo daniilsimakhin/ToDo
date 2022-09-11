@@ -5,7 +5,7 @@
 * Create/delete/edit task
 * Enable notifications task
 * Setting emportance task
-## Что использовалось
+## Technologies
 * JSON Serialization (without Codable)
 * Local Notifications
 * Creating interface programmatically/Auto layout
