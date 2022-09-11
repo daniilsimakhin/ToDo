@@ -1,17 +1,17 @@
 # ToDo
-## Архитектура
+## Architecture
 * MVC
-## Основные функции
-* Создание/удаление/редактирование задачи
-* Вкючение напоминания задачи
-* Настройка важности задачи
+## Main functions
+* Create/delete/edit task
+* Enable notifications task
+* Setting emportance task
 ## Что использовалось
-* JSON Serialization (без Codable)
+* JSON Serialization (without Codable)
 * Local Notifications
-* Верстка кодом/Auto layout
+* Creating interface programmatically/Auto layout
 * NotificationsCenter (for notifications from keyboard)
 * Dark/Light theme
-* Редактирование/удаление/загрузка/сохранение данных
+* Edit/delete/load/save data from JSON
 * Singtone
 * Observers
 * Protocols
