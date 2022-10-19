@@ -77,12 +77,127 @@
 			path = ToDoTests;
 			sourceTree = "<group>";
 		};
-		A501281D28BD31DF0042B166 /* Services */ = {
+		A55AC1C42900759700B06F2A /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				A55AC1D12900766300B06F2A /* Common */,
+				A55AC1C6290075A100B06F2A /* DetailItem */,
+				A55AC1C52900759C00B06F2A /* ItemList */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		A55AC1C52900759C00B06F2A /* ItemList */ = {
+			isa = PBXGroup;
+			children = (
+				A55AC1CA290075C000B06F2A /* Controller */,
+				A55AC1C9290075BE00B06F2A /* View */,
+			);
+			path = ItemList;
+			sourceTree = "<group>";
+		};
+		A55AC1C6290075A100B06F2A /* DetailItem */ = {
+			isa = PBXGroup;
+			children = (
+				A55AC1C8290075BA00B06F2A /* Controller */,
+				A55AC1C7290075B800B06F2A /* View */,
+			);
+			path = DetailItem;
+			sourceTree = "<group>";
+		};
+		A55AC1C7290075B800B06F2A /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		A55AC1C8290075BA00B06F2A /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				A501281228AC06F00042B166 /* AddingItemViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		A55AC1C9290075BE00B06F2A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A501281828AE87850042B166 /* ItemTableViewHeaderFooterView.swift */,
+				A501281428AD3A260042B166 /* ItemTableViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		A55AC1CA290075C000B06F2A /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				A5FF884328A55DBC00DEE875 /* ItemListViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		A55AC1CB290075E100B06F2A /* Supporting */ = {
+			isa = PBXGroup;
+			children = (
+				A55AC1CE2900762600B06F2A /* Services */,
+				A55AC1CD290075FD00B06F2A /* Resources */,
+				A55AC1CC290075E700B06F2A /* App */,
+			);
+			path = Supporting;
+			sourceTree = "<group>";
+		};
+		A55AC1CC290075E700B06F2A /* App */ = {
+			isa = PBXGroup;
+			children = (
+				A5FF883F28A55DBC00DEE875 /* AppDelegate.swift */,
+				A5FF884128A55DBC00DEE875 /* SceneDelegate.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		A55AC1CD290075FD00B06F2A /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				A501281B28AFF4870042B166 /* Constans.swift */,
+				A5FF884B28A55DBD00DEE875 /* Assets.xcassets */,
+				A5FF884D28A55DBD00DEE875 /* LaunchScreen.storyboard */,
+				A5FF885028A55DBD00DEE875 /* Info.plist */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		A55AC1CE2900762600B06F2A /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				A55AC1D4290076AD00B06F2A /* TaskBrain */,
+				A55AC1CF2900762F00B06F2A /* Notification */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		A55AC1CF2900762F00B06F2A /* Notification */ = {
 			isa = PBXGroup;
 			children = (
 				A501281E28BD32510042B166 /* NotificationService.swift */,
 			);
-			path = Services;
+			path = Notification;
+			sourceTree = "<group>";
+		};
+		A55AC1D12900766300B06F2A /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				A5FF885628A55DDB00DEE875 /* Model */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		A55AC1D4290076AD00B06F2A /* TaskBrain */ = {
+			isa = PBXGroup;
+			children = (
+				A5FF885D28A69BC100DEE875 /* FileCache.swift */,
+			);
+			path = TaskBrain;
 			sourceTree = "<group>";
 		};
 		A5FF883328A55DBC00DEE875 = {
@@ -106,13 +221,8 @@
 		A5FF883E28A55DBC00DEE875 /* ToDo */ = {
 			isa = PBXGroup;
 			children = (
-				A501281D28BD31DF0042B166 /* Services */,
-				A5FF885A28A55E2400DEE875 /* Resources */,
-				A5FF885928A55DFB00DEE875 /* Application */,
-				A5FF885828A55DE400DEE875 /* Controller */,
-				A5FF885728A55DE000DEE875 /* View */,
-				A5FF885628A55DDB00DEE875 /* Model */,
-				A5FF885028A55DBD00DEE875 /* Info.plist */,
+				A55AC1CB290075E100B06F2A /* Supporting */,
+				A55AC1C42900759700B06F2A /* Modules */,
 			);
 			path = ToDo;
 			sourceTree = "<group>";
@@ -121,46 +231,8 @@
 			isa = PBXGroup;
 			children = (
 				A5FF885B28A55E5900DEE875 /* ToDoItem.swift */,
-				A5FF885D28A69BC100DEE875 /* FileCache.swift */,
 			);
 			path = Model;
-			sourceTree = "<group>";
-		};
-		A5FF885728A55DE000DEE875 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				A5FF884D28A55DBD00DEE875 /* LaunchScreen.storyboard */,
-				A501281428AD3A260042B166 /* ItemTableViewCell.swift */,
-				A501281828AE87850042B166 /* ItemTableViewHeaderFooterView.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		A5FF885828A55DE400DEE875 /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				A5FF884328A55DBC00DEE875 /* ItemListViewController.swift */,
-				A501281228AC06F00042B166 /* AddingItemViewController.swift */,
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
-		A5FF885928A55DFB00DEE875 /* Application */ = {
-			isa = PBXGroup;
-			children = (
-				A5FF883F28A55DBC00DEE875 /* AppDelegate.swift */,
-				A5FF884128A55DBC00DEE875 /* SceneDelegate.swift */,
-			);
-			path = Application;
-			sourceTree = "<group>";
-		};
-		A5FF885A28A55E2400DEE875 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				A501281B28AFF4870042B166 /* Constans.swift */,
-				A5FF884B28A55DBD00DEE875 /* Assets.xcassets */,
-			);
-			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
