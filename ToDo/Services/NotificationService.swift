@@ -13,6 +13,8 @@ class NotificationService {
     var settings: UNNotificationSettings?
     let notificationCenter = UNUserNotificationCenter.current()
     
+    private init () { }
+    
     func requestAuthorization(completion: @escaping (Bool) -> Void) {
         notificationCenter.requestAuthorization(options: [.alert, .sound, .badge]) { granted, _ in
             completion(granted)
