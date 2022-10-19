@@ -1,5 +1,5 @@
 //
-//  ItemTableViewHeaderFooterView.swift
+//  TaskTableViewHeaderFooterView.swift
 //  ToDo
 //
 //  Created by Даниил Симахин on 18.08.2022.
@@ -7,23 +7,23 @@
 
 import UIKit
 
-protocol ItemTableViewHeaderFooterViewDelegate {
+protocol TaskTableViewHeaderFooterViewDelegate {
     func showButton(_ check: Bool)
 }
 
-class ItemTableViewHeaderFooterView: UITableViewHeaderFooterView {
+class TaskTableViewHeaderFooterView: UITableViewHeaderFooterView {
     
-    static let identifire = "ItemTableViewHeaderFooterView"
+    static let identifire = "TaskTableViewHeaderFooterView"
     
-    var delegate: ItemTableViewHeaderFooterViewDelegate?
+    var delegate: TaskTableViewHeaderFooterViewDelegate?
     
-    var completedItemCount = 0 {
+    var completedTaskCount = 0 {
         didSet {
-            title.text = "Выполнено - \(completedItemCount)"
+            title.text = "Выполнено - \(completedTaskCount)"
         }
     }
     
-    var compeletedItemsHidden = false
+    var compeletedTasksHidden = false
 
     private let title: UILabel = {
         let title = UILabel()
@@ -37,7 +37,7 @@ class ItemTableViewHeaderFooterView: UITableViewHeaderFooterView {
     private let showButton: UIButton = {
         let showButton = UIButton()
         showButton.setTitle("Показать", for: .normal)
-        showButton.setTitleColor(Constans.Colors.navBarItemColor, for: .normal)
+        showButton.setTitleColor(Constans.Colors.navBarTaskColor, for: .normal)
         showButton.contentHorizontalAlignment = .right
         showButton.titleLabel?.font = .systemFont(ofSize: 15, weight: .semibold)
         showButton.addTarget(self, action: #selector(showButtonPressed(sender:)), for: .touchUpInside)
@@ -69,23 +69,23 @@ class ItemTableViewHeaderFooterView: UITableViewHeaderFooterView {
         ])
     }
     
-    private func setItemsHidden(state: Bool) {
-        compeletedItemsHidden = state
-        if compeletedItemsHidden {
+    private func setTasksHidden(state: Bool) {
+        compeletedTasksHidden = state
+        if compeletedTasksHidden {
             showButton.setTitle("Показать", for: .normal)
         } else {
             showButton.setTitle("Cкрыть", for: .normal)
         }
     }
     
-    func configure(compeletedItem: Int, isHidden: Bool) {
-        title.text = "Выполнено - \(compeletedItem)"
-        completedItemCount = compeletedItem
-        setItemsHidden(state: isHidden)
+    func configure(compeletedTask: Int, isHidden: Bool) {
+        title.text = "Выполнено - \(compeletedTask)"
+        completedTaskCount = compeletedTask
+        setTasksHidden(state: isHidden)
     }
     
     @objc func showButtonPressed(sender: UIButton!) {
-        setItemsHidden(state: !compeletedItemsHidden)
-        delegate?.showButton(compeletedItemsHidden)
+        setTasksHidden(state: !compeletedTasksHidden)
+        delegate?.showButton(compeletedTasksHidden)
     }
 }

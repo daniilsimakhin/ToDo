@@ -10,24 +10,24 @@ import XCTest
 
 class ToDoTests: XCTestCase {
     
-    var toDoItem: ToDoItem!
+    var toDoTask: Task!
 
     override func setUpWithError() throws {
         try super.setUpWithError()
-        toDoItem = ToDoItem(id: UUID().uuidString, text: "Hello", importance: .ordinary, deadline: nil, isComplete: false, dateCreated: Date(), dateChanged: nil)
+        toDoTask = Task(id: UUID().uuidString, text: "Hello", importance: .ordinary, deadline: nil, isComplete: false, dateCreated: Date(), dateChanged: nil)
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
 
     override func tearDownWithError() throws {
-        toDoItem = nil
+        toDoTask = nil
         try super.tearDownWithError()
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
     func testExample() throws {
-        XCTAssert(!toDoItem.isComplete, "isComplete == true")
-        XCTAssertNil(toDoItem.dateChanged, "dateChanged != nil")
-        XCTAssertNil(toDoItem.deadline, "dateChanged != nil")
+        XCTAssert(!toDoTask.isComplete, "isComplete == true")
+        XCTAssertNil(toDoTask.dateChanged, "dateChanged != nil")
+        XCTAssertNil(toDoTask.deadline, "dateChanged != nil")
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
         // Any test you write for XCTest can be annotated as throws and async.
@@ -37,15 +37,15 @@ class ToDoTests: XCTestCase {
 
     func testScoreIsComputedWhenGuessIsHigherThanTarget() {
       // given
-        let item1 = ToDoItem(id: UUID().uuidString, text: "Hello guy", importance: .ordinary, deadline: nil, isComplete: false, dateCreated: Date(), dateChanged: nil)
+        let task1 = Task(id: UUID().uuidString, text: "Hello guy", importance: .ordinary, deadline: nil, isComplete: false, dateCreated: Date(), dateChanged: nil)
 
       // when
 
       // then
-        XCTAssertEqual(item1.text, "Hello guy")
-        XCTAssertEqual(item1.importance, .ordinary)
-        XCTAssertNil(item1.deadline)
-        XCTAssertFalse(item1.isComplete)
-        XCTAssertNil(item1.dateChanged)
+        XCTAssertEqual(task1.text, "Hello guy")
+        XCTAssertEqual(task1.importance, .ordinary)
+        XCTAssertNil(task1.deadline)
+        XCTAssertFalse(task1.isComplete)
+        XCTAssertNil(task1.dateChanged)
     }
 }

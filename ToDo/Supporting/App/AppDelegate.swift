@@ -48,13 +48,13 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         if response.actionIdentifier == "markAsDone" {
             let userInfo = response.notification.request.content.userInfo
-            if let item = ToDoItem.parse(json: userInfo["Item"] as! NSMutableDictionary) {
+            if let task = Task.parse(json: userInfo["Task"] as! NSMutableDictionary) {
                 let fileCache = FileCache()
-                fileCache.loadItems()
-                if let index = fileCache.toDoItems.firstIndex(where: { $0.id == item.id }) {
-                    fileCache.deleteItem(id: item.id)
-                    fileCache.addNewItem(item: ToDoItem(id: item.id, text: item.text, importance: item.importance, deadline: item.deadline, isComplete: !item.isComplete, dateCreated: item.dateCreated, dateChanged: Date()), indexPath: IndexPath(row: index, section: 0))
-                    fileCache.saveItems()
+                fileCache.loadTasks()
+                if let index = fileCache.toDoTasks.firstIndex(where: { $0.id == task.id }) {
+                    fileCache.deleteTask(id: task.id)
+                    fileCache.addNewTask(task: Task(id: task.id, text: task.text, importance: task.importance, deadline: task.deadline, isComplete: !task.isComplete, dateCreated: task.dateCreated, dateChanged: Date()), indexPath: IndexPath(row: index, section: 0))
+                    fileCache.saveTasks()
                 }
             }
         }

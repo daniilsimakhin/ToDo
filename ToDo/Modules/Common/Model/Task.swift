@@ -1,5 +1,5 @@
 //
-//  ToDoItem.swift
+//  Task.swift
 //  ToDo
 //
 //  Created by Даниил Симахин on 11.08.2022.
@@ -39,7 +39,7 @@ enum Importance: String {
     }
 }
 
-struct ToDoItem {
+struct Task {
     let id: String
     let text: String
     let importance: Importance
@@ -50,7 +50,7 @@ struct ToDoItem {
     
 }
 
-extension ToDoItem {
+extension Task {
     var json: Any {
         let nsDictionary = NSMutableDictionary(dictionary: [
             "id": "\(id)",
@@ -73,7 +73,7 @@ extension ToDoItem {
         return nsDictionary
     }
     
-    static func parse(json: Any) -> ToDoItem? {
+    static func parse(json: Any) -> Task? {
         do {
             let jsonData = try JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
             let decoded = try JSONSerialization.jsonObject(with: jsonData, options: [])
@@ -81,7 +81,7 @@ extension ToDoItem {
             let deadline = dictFromJSON["deadline"] != nil ? Date(timeIntervalSince1970: TimeInterval(Float(dictFromJSON["deadline"]!)!)) : nil
             let dateChanged = dictFromJSON["dateChanged"] != nil ? Date(timeIntervalSince1970: TimeInterval(Float(dictFromJSON["dateChanged"]!)!)) : nil
             
-            return ToDoItem(id: dictFromJSON["id"]!,
+            return Task(id: dictFromJSON["id"]!,
                             text: dictFromJSON["text"]!,
                             importance: Importance.convertFromString(string: dictFromJSON["importance"] ?? "ordinary"),
                             deadline: deadline,

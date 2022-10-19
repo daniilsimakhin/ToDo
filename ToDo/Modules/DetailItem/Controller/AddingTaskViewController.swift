@@ -1,5 +1,5 @@
 //
-//  AddingItemViewController.swift
+//  AddingTaskViewController.swift
 //  ToDo
 //
 //  Created by Даниил Симахин on 17.08.2022.
@@ -7,18 +7,18 @@
 
 import UIKit
 
-protocol AddingItemViewControllerDelegate {
-    func saveNewItem(newItem: ToDoItem)
-    func saveChangedItem(oldItem: ToDoItem, newItem: ToDoItem, indexPath: IndexPath)
-    func deleteCurrentItem(id: String)
+protocol AddingTaskViewControllerDelegate {
+    func saveNewTask(newTask: Task)
+    func saveChangedTask(oldTask: Task, newTask: Task, indexPath: IndexPath)
+    func deleteCurrentTask(id: String)
 }
 
-final class AddingItemViewController: UIViewController {
+final class AddingTaskViewController: UIViewController {
     
-    private var item: ToDoItem?
+    private var task: Task?
     private var indexPath: IndexPath?
     private var keyboardIsHidden = true
-    var delegate: AddingItemViewControllerDelegate?
+    var delegate: AddingTaskViewControllerDelegate?
     
     private var contentSize: CGSize {
         if keyboardIsHidden {
@@ -110,7 +110,7 @@ final class AddingItemViewController: UIViewController {
         datePicker.backgroundColor = Constans.Colors.mainViewColor
         datePicker.contentHorizontalAlignment = .left
         datePicker.isHidden = true
-        datePicker.tintColor = Constans.Colors.navBarItemColor
+        datePicker.tintColor = Constans.Colors.navBarTaskColor
         datePicker.locale = .current
         datePicker.translatesAutoresizingMaskIntoConstraints = false
         return datePicker
@@ -178,10 +178,10 @@ final class AddingItemViewController: UIViewController {
     
     private func setupUI() {
         scrollView.delegate = self
-        title = Constans.Texts.titleAddingItem
+        title = Constans.Texts.titleAddingTask
         view.backgroundColor = Constans.Colors.backgroundColor
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: Constans.Texts.save, style: .done, target: self, action: #selector(saveCreatedItem))
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: Constans.Texts.cancel, style: .plain, target: self, action: #selector(cancelCreatingItem))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: Constans.Texts.save, style: .done, target: self, action: #selector(saveCreatedTask))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: Constans.Texts.cancel, style: .plain, target: self, action: #selector(cancelCreatingTask))
     }
     
     private func setConstraints() {
@@ -259,15 +259,15 @@ final class AddingItemViewController: UIViewController {
         self.present(alert, animated: true)
     }
     //MARK: - Public functions
-    func configure(item: ToDoItem?, indexPath: IndexPath?) {
+    func configure(task: Task?, indexPath: IndexPath?) {
         self.indexPath = indexPath
-        guard let item = item else {
-            self.item = nil
+        guard let task = task else {
+            self.task = nil
             return
         }
-        self.item = item
-        textView.text = item.text
-        switch item.importance {
+        self.task = task
+        textView.text = task.text
+        switch task.importance {
         case .important:
             importanceSegmentedControl.selectedSegmentIndex = 2
         case .unimportant:
@@ -275,7 +275,7 @@ final class AddingItemViewController: UIViewController {
         case .ordinary:
             importanceSegmentedControl.selectedSegmentIndex = 1
         }
-        if let deadline = item.deadline {
+        if let deadline = task.deadline {
             setSwitch(state: true)
             datePicker.date = deadline
         } else {
@@ -288,9 +288,9 @@ final class AddingItemViewController: UIViewController {
     }
     
     @objc private func didTapDeleteButton(sender: UIButton!) {
-        if let id = item?.id {
+        if let id = task?.id {
             dismiss(animated: true) {
-                self.delegate?.deleteCurrentItem(id: id)
+                self.delegate?.deleteCurrentTask(id: id)
             }
         } else {
             textView.text.removeAll()
@@ -300,24 +300,24 @@ final class AddingItemViewController: UIViewController {
         }
     }
     
-    @objc private func saveCreatedItem() {
+    @objc private func saveCreatedTask() {
         if dateSwitch.isOn && datePicker.date <= Date() {
             invalidDateAlert()
             return
         }
-        if let oldItem = self.item {
-            let newItem = ToDoItem(id: oldItem.id,
+        if let oldTask = self.task {
+            let newTask = Task(id: oldTask.id,
                                    text: textView.text,
                                    importance: Importance.convertFromIndex(index: importanceSegmentedControl.selectedSegmentIndex),
                                    deadline: dateSwitch.isOn ? datePicker.date : nil,
-                                   isComplete: oldItem.isComplete,
-                                   dateCreated: oldItem.dateCreated,
+                                   isComplete: oldTask.isComplete,
+                                   dateCreated: oldTask.dateCreated,
                                    dateChanged: Date())
             self.dismiss(animated: true) {
-                self.delegate?.saveChangedItem(oldItem: oldItem, newItem: newItem, indexPath: self.indexPath!)
+                self.delegate?.saveChangedTask(oldTask: oldTask, newTask: newTask, indexPath: self.indexPath!)
             }
         } else {
-            let newItem = ToDoItem(id: UUID().uuidString,
+            let newTask = Task(id: UUID().uuidString,
                                    text: textView.text,
                                    importance: Importance.convertFromIndex(index: importanceSegmentedControl.selectedSegmentIndex),
                                    deadline: dateSwitch.isOn ? datePicker.date : nil,
@@ -325,23 +325,23 @@ final class AddingItemViewController: UIViewController {
                                    dateCreated: Date(),
                                    dateChanged: Date())
             self.dismiss(animated: true) {
-                self.delegate?.saveNewItem(newItem: newItem)
+                self.delegate?.saveNewTask(newTask: newTask)
             }
         }
     }
     
-    @objc private func cancelCreatingItem() {
+    @objc private func cancelCreatingTask() {
         dismiss(animated: true)
     }
 }
 //MARK: - UIScrollViewDelegate
-extension AddingItemViewController: UIScrollViewDelegate {
+extension AddingTaskViewController: UIScrollViewDelegate {
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         textView.resignFirstResponder()
     }
 }
 //MARK: - KeyboardManage
-extension AddingItemViewController {
+extension AddingTaskViewController {
     private func registerForKeyboardNorifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)

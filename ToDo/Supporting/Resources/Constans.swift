@@ -13,7 +13,7 @@ enum Constans {
         static let backgroundColor = UIColor(named: "backgroundColor")
         static let checkboxColor = UIColor(named: "checkboxColor")
         static let navBarColor = UIColor(named: "navBarColor")
-        static let navBarItemColor = UIColor(named: "navBarItemColor")
+        static let navBarTaskColor = UIColor(named: "navBarTaskColor")
         static let secondaryTextColor = UIColor(named: "secondaryTextColor")
         static let mainViewColor = UIColor(named: "mainViewColor")
         static let textColor = UIColor(named: "textColor")
@@ -21,13 +21,13 @@ enum Constans {
     }
     
     enum Texts {
-        static let titleItemList = "Мои дела"
-        static let titleAddingItem = "Дело"
+        static let titleTaskList = "Мои дела"
+        static let titleAddingTask = "Дело"
         
         static let importance = "Важность"
         static let makeUp = "Сделать до"
         
-        static let placeholderForAddItem = "Что надо сделать?"
+        static let placeholderForAddTask = "Что надо сделать?"
         
         static let save = "Сохранить"
         static let cancel = "Отменить"

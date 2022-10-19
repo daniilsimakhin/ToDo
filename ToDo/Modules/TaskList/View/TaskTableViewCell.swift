@@ -1,5 +1,5 @@
 //
-//  ItemTableViewCell.swift
+//  TaskTableViewCell.swift
 //  ToDo
 //
 //  Created by Даниил Симахин on 17.08.2022.
@@ -7,16 +7,16 @@
 
 import UIKit
 
-protocol ItemTableViewCellDelegate {
-    func updateCell (check: Bool, item: ToDoItem)
+protocol TaskTableViewCellDelegate {
+    func updateCell (check: Bool, task: Task)
 }
 
-class ItemTableViewCell: UITableViewCell {
+class TaskTableViewCell: UITableViewCell {
     
-    var delegate: ItemTableViewCellDelegate?
-    static var identifire = "ItemTableViewCellDelegate"
+    var delegate: TaskTableViewCellDelegate?
+    static var identifire = "TaskTableViewCellDelegate"
     var state = false
-    var item: ToDoItem?
+    var task: Task?
 
     private var checkbox: UIButton = {
         let checkbox = UIButton()
@@ -84,15 +84,15 @@ class ItemTableViewCell: UITableViewCell {
     
     @objc func checkboxPressedButton(sender: UIButton!) {
         changeStateCheckbox(!state)
-        delegate?.updateCell(check: state, item: item!)
+        delegate?.updateCell(check: state, task: task!)
     }
     
-    func configure(item: ToDoItem) {
-        self.item = item
-        title.text = item.text
-        changeStateCheckbox(item.isComplete)
+    func configure(task: Task) {
+        self.task = task
+        title.text = task.text
+        changeStateCheckbox(task.isComplete)
         
-        if let deadline = item.deadline {
+        if let deadline = task.deadline {
             let dateFormatterGet = DateFormatter()
             dateFormatterGet.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
 
@@ -108,7 +108,7 @@ class ItemTableViewCell: UITableViewCell {
             dateTitle.text = nil
         }
         
-        switch item.importance {
+        switch task.importance {
         case .unimportant:
             title.text = "↓" + title.text!
             break

@@ -8,81 +8,81 @@
 import Foundation
 
 protocol FileCacheDelegate {
-    var toDoItems: [ToDoItem] { get }
+    var toDoTasks: [Task] { get }
     
-    func addNewItem(item: ToDoItem)
+    func addNewTask(task: Task)
     
-    func deleteItem(id: String)
+    func deleteTask(id: String)
     
-    func saveItems()
+    func saveTasks()
     
-    func loadItems()
+    func loadTasks()
 }
 
 class FileCache: FileCacheDelegate {
     
-    var toDoItems = [ToDoItem]()
+    var toDoTasks = [Task]()
     
-    let fileName = "ToDoItems.json"
+    let fileName = "ToDoTasks.json"
     
-    func addNewItem(item: ToDoItem) {
-        var item = item
-        while toDoItems.contains(where: { toDoItem in
-            toDoItem.id == item.id
+    func addNewTask(task: Task) {
+        var task = task
+        while toDoTasks.contains(where: { toDoTask in
+            toDoTask.id == task.id
         }) {
-            item = ToDoItem(id: UUID().uuidString, text: item.text, importance: item.importance, deadline: item.deadline, isComplete: item.isComplete, dateCreated: item.dateCreated, dateChanged: item.dateChanged)
+            task = Task(id: UUID().uuidString, text: task.text, importance: task.importance, deadline: task.deadline, isComplete: task.isComplete, dateCreated: task.dateCreated, dateChanged: task.dateChanged)
         }
-        if item.importance == .important {
-            toDoItems.insert(item, at: 0)
-        } else if item.importance == .unimportant {
-            toDoItems.insert(item, at: toDoItems.count)
+        if task.importance == .important {
+            toDoTasks.insert(task, at: 0)
+        } else if task.importance == .unimportant {
+            toDoTasks.insert(task, at: toDoTasks.count)
         } else {
-            let index = toDoItems.reduce(0) { $1.importance == .important ? $0 + 1 : $0 + 0 }
-            toDoItems.insert(item, at: index)
+            let index = toDoTasks.reduce(0) { $1.importance == .important ? $0 + 1 : $0 + 0 }
+            toDoTasks.insert(task, at: index)
         }
     }
     
-    func addNewItem(item: ToDoItem, indexPath: IndexPath) {
-        var item = item
-        while toDoItems.contains(where: { toDoItem in
-            toDoItem.id == item.id
+    func addNewTask(task: Task, indexPath: IndexPath) {
+        var task = task
+        while toDoTasks.contains(where: { toDoTask in
+            toDoTask.id == task.id
         }) {
-            item = ToDoItem(id: UUID().uuidString, text: item.text, importance: item.importance, deadline: item.deadline, isComplete: item.isComplete, dateCreated: item.dateCreated, dateChanged: item.dateChanged)
+            task = Task(id: UUID().uuidString, text: task.text, importance: task.importance, deadline: task.deadline, isComplete: task.isComplete, dateCreated: task.dateCreated, dateChanged: task.dateChanged)
         }
-        toDoItems.insert(item, at: indexPath.row)
+        toDoTasks.insert(task, at: indexPath.row)
     }
     
-    func deleteItem(id: String) {
-        for (index, values) in toDoItems.enumerated() {
+    func deleteTask(id: String) {
+        for (index, values) in toDoTasks.enumerated() {
             if values.id == id {
-                toDoItems.remove(at: index)
+                toDoTasks.remove(at: index)
                 return
             }
         }
-        fatalError("don't delete item")
+        fatalError("don't delete task")
     }
     
-    func saveItems() {
+    func saveTasks() {
         guard let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
         let fileUrl = documentDirectory.appendingPathComponent(fileName)
-        let jsonItems = toDoItems.map { $0.json as! NSMutableDictionary }
+        let jsonTasks = toDoTasks.map { $0.json as! NSMutableDictionary }
         do {
-            let jsonData = try JSONSerialization.data(withJSONObject: jsonItems, options: [])
+            let jsonData = try JSONSerialization.data(withJSONObject: jsonTasks, options: [])
             try jsonData.write(to: fileUrl, options: [])
         } catch {
-            print("Error with saving items to JSON, \(error.localizedDescription)")
+            print("Error with saving tasks to JSON, \(error.localizedDescription)")
         }
     }
     
-    func loadItems() {
+    func loadTasks() {
         guard let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
         let fileUrl = documentDirectory.appendingPathComponent(fileName)
         do {
             let data = try Data(contentsOf: fileUrl, options: [])
-            guard let items = try JSONSerialization.jsonObject(with: data, options: []) as? [[String: String]] else { return }
-            self.toDoItems = items.map{ ToDoItem.parse(json: $0)! }
+            guard let tasks = try JSONSerialization.jsonObject(with: data, options: []) as? [[String: String]] else { return }
+            self.toDoTasks = tasks.map{ Task.parse(json: $0)! }
         } catch {
-            print("Error with loading items from JSON, \(error.localizedDescription)")
+            print("Error with loading tasks from JSON, \(error.localizedDescription)")
         }
     }
 }

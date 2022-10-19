@@ -30,23 +30,23 @@ class NotificationService {
         }
     }
     
-    func scheduleNotification(_ item: ToDoItem) {
+    func scheduleNotification(_ task: Task) {
         let content = UNMutableNotificationContent()
         content.title = "ToDo"
-        content.body = item.text
+        content.body = task.text
         
         content.categoryIdentifier = "ToDoCategory"
-        content.userInfo = ["Item": item.json]
+        content.userInfo = ["Task": task.json]
         
         var trigger: UNNotificationTrigger?
         
-        if let deadline = item.deadline?.timeIntervalSinceNow {
+        if let deadline = task.deadline?.timeIntervalSinceNow {
             trigger = UNTimeIntervalNotificationTrigger(timeInterval: deadline, repeats: false)
         }
         
         if let trigger = trigger {
             let request = UNNotificationRequest(
-                identifier: item.id,
+                identifier: task.id,
                 content: content,
                 trigger: trigger)
             
@@ -58,7 +58,7 @@ class NotificationService {
         }
     }
     
-    func removeScheduledNotification(_ item: ToDoItem) {
-        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [item.id])
+    func removeScheduledNotification(_ task: Task) {
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [task.id])
     }
 }
