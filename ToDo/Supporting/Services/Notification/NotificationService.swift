@@ -36,7 +36,10 @@ class NotificationService {
         content.body = task.text
         
         content.categoryIdentifier = "ToDoCategory"
-        content.userInfo = ["Task": task.json]
+        let taskData = try? JSONEncoder().encode(task)
+        if let taskData = taskData {
+            content.userInfo = ["Task": taskData]
+        }
         
         var trigger: UNNotificationTrigger?
         
