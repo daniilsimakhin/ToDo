@@ -10,42 +10,45 @@ import XCTest
 
 class ToDoTests: XCTestCase {
     
-    var toDoTask: Task!
-
-    override func setUpWithError() throws {
-        try super.setUpWithError()
-        toDoTask = Task(id: UUID().uuidString, text: "Hello", importance: .ordinary, deadline: nil, isComplete: false, dateCreated: Date(), dateChanged: nil)
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+    func testTask1() {
+        let dateCreated = Date()
+        let task = Task(id: "01", text: "Hello guy", importance: .ordinary, deadline: nil, isComplete: false, dateCreated: dateCreated, dateChanged: nil)
+        
+        XCTAssertEqual(task.id, "01")
+        XCTAssertEqual(task.text, "Hello guy")
+        XCTAssertEqual(task.importance, .ordinary)
+        XCTAssertNil(task.deadline)
+        XCTAssertFalse(task.isComplete)
+        XCTAssertEqual(task.dateCreated, dateCreated)
+        XCTAssertNil(task.dateChanged)
     }
-
-    override func tearDownWithError() throws {
-        toDoTask = nil
-        try super.tearDownWithError()
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+    
+    func testTask2() {
+        let dateCreated = Date()
+        let dateChanged = Date()
+        let task = Task(id: "02", text: "", importance: .important, deadline: Date.tomorrow, isComplete: true, dateCreated: dateCreated, dateChanged: dateChanged)
+        
+        XCTAssertEqual(task.id, "02")
+        XCTAssertEqual(task.text, "")
+        XCTAssertEqual(task.importance, .important)
+        XCTAssertEqual(task.deadline, Date.tomorrow)
+        XCTAssertTrue(task.isComplete)
+        XCTAssertEqual(task.dateCreated, dateCreated)
+        XCTAssertEqual(task.dateChanged, dateChanged)
     }
-
-    func testExample() throws {
-        XCTAssert(!toDoTask.isComplete, "isComplete == true")
-        XCTAssertNil(toDoTask.dateChanged, "dateChanged != nil")
-        XCTAssertNil(toDoTask.deadline, "dateChanged != nil")
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
-    }
-
-    func testScoreIsComputedWhenGuessIsHigherThanTarget() {
-      // given
-        let task1 = Task(id: UUID().uuidString, text: "Hello guy", importance: .ordinary, deadline: nil, isComplete: false, dateCreated: Date(), dateChanged: nil)
-
-      // when
-
-      // then
-        XCTAssertEqual(task1.text, "Hello guy")
-        XCTAssertEqual(task1.importance, .ordinary)
-        XCTAssertNil(task1.deadline)
-        XCTAssertFalse(task1.isComplete)
-        XCTAssertNil(task1.dateChanged)
+    
+    func testTaskService() {
+        let task1 = Task(id: "1", text: "1", importance: .ordinary, deadline: nil, isComplete: true, dateCreated: Date(), dateChanged: Date())
+        let task2 = Task(id: "2", text: "2", importance: .important, deadline: Date.tomorrow, isComplete: true, dateCreated: Date(), dateChanged: Date())
+        let task3 = Task(id: "3", text: "3", importance: .unimportant, deadline: nil, isComplete: false, dateCreated: Date(), dateChanged: nil)
+        
+        let taskService = TaskService()
+        XCTAssertEqual(taskService.tasks.count, 0)
+        taskService.appendTask(task: task1, indexPath: nil)
+        taskService.appendTask(task: task2, indexPath: nil)
+        taskService.appendTask(task: task3, indexPath: nil)
+        XCTAssertEqual(taskService.tasks.count, 3)
+        taskService.deleteTask(id: "1")
+        XCTAssertEqual(taskService.tasks.count, 2)
     }
 }
