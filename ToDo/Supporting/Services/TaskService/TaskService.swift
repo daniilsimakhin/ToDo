@@ -73,7 +73,10 @@ class TaskService: TaskBaseService {
     
     func loadTasks() {
         guard let fileURL = filePath else { return }
-        guard FileManager.default.fileExists(atPath: fileURL.path) else { fatalError("File is not exist") }
+        guard FileManager.default.fileExists(atPath: fileURL.path) else {
+            print("File is not exist")
+            return
+        }
         do {
             let data = try Data(contentsOf: fileURL)
             let json = try JSONDecoder().decode([Task].self, from: data)

@@ -14,7 +14,7 @@ protocol TaskTableViewCellDelegate {
 class TaskTableViewCell: UITableViewCell {
     
     var delegate: TaskTableViewCellDelegate?
-    static var identifire = "TaskTableViewCellDelegate"
+    static var identifire = String(describing: TaskTableViewCell.self)
     var state = false
     var task: Task?
 

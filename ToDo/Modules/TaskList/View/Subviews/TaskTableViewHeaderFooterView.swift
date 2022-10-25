@@ -13,24 +13,31 @@ protocol TaskTableViewHeaderFooterViewDelegate {
 
 class TaskTableViewHeaderFooterView: UITableViewHeaderFooterView {
     
-    static let identifire = "TaskTableViewHeaderFooterView"
+    static let identifire = String(describing: TaskTableViewHeaderFooterView.self)
     
     var delegate: TaskTableViewHeaderFooterViewDelegate?
     
     var completedTaskCount = 0 {
         didSet {
-            title.text = "Выполнено - \(completedTaskCount)"
+            numberOfTasksLabel.text = "Выполнено - \(completedTaskCount)"
         }
     }
     
-    var compeletedTasksHidden = false
+    var compeletedTasksHidden = false {
+        didSet {
+            if compeletedTasksHidden {
+                showButton.setTitle("Показать", for: .normal)
+            } else {
+                showButton.setTitle("Cкрыть", for: .normal)
+            }
+        }
+    }
 
-    private let title: UILabel = {
+    private let numberOfTasksLabel: UILabel = {
         let title = UILabel()
-        title.text = "Выполнено - $"
         title.textColor = Constans.Colors.secondaryTextColor
         title.textAlignment = .left
-        title.font = .systemFont(ofSize: 15, weight: .regular)
+        title.font = .preferredFont(forTextStyle: .headline)
         title.translatesAutoresizingMaskIntoConstraints = false
         return title
     }()
@@ -39,7 +46,7 @@ class TaskTableViewHeaderFooterView: UITableViewHeaderFooterView {
         showButton.setTitle("Показать", for: .normal)
         showButton.setTitleColor(Constans.Colors.navBarTaskColor, for: .normal)
         showButton.contentHorizontalAlignment = .right
-        showButton.titleLabel?.font = .systemFont(ofSize: 15, weight: .semibold)
+        showButton.titleLabel?.font = .preferredFont(forTextStyle: .callout)
         showButton.addTarget(self, action: #selector(showButtonPressed(sender:)), for: .touchUpInside)
         showButton.translatesAutoresizingMaskIntoConstraints = false
         return showButton
@@ -55,37 +62,26 @@ class TaskTableViewHeaderFooterView: UITableViewHeaderFooterView {
     }
     
     private func setupUI() {
-        contentView.addSubview(showButton)
-        contentView.addSubview(title)
+        contentView.addSubview(numberOfTasksLabel)
         NSLayoutConstraint.activate([
-            title.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
-//            title.trailingAnchor.constraint(equalTo: showButton.leadingAnchor, constant: -10),
-            title.heightAnchor.constraint(equalTo: showButton.heightAnchor),
+            numberOfTasksLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
+            numberOfTasksLabel.heightAnchor.constraint(equalTo: contentView.heightAnchor),
             
+        ])
+        contentView.addSubview(showButton)
+        NSLayoutConstraint.activate([
             showButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
-            //showButton.widthAnchor.constraint(equalToConstant: 80),
-            showButton.topAnchor.constraint(equalTo: contentView.topAnchor),
-            showButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            showButton.heightAnchor.constraint(equalTo: contentView.heightAnchor),
         ])
     }
     
-    private func setTasksHidden(state: Bool) {
-        compeletedTasksHidden = state
-        if compeletedTasksHidden {
-            showButton.setTitle("Показать", for: .normal)
-        } else {
-            showButton.setTitle("Cкрыть", for: .normal)
-        }
-    }
-    
     func configure(compeletedTask: Int, isHidden: Bool) {
-        title.text = "Выполнено - \(compeletedTask)"
         completedTaskCount = compeletedTask
-        setTasksHidden(state: isHidden)
+        compeletedTasksHidden = isHidden
     }
     
     @objc func showButtonPressed(sender: UIButton!) {
-        setTasksHidden(state: !compeletedTasksHidden)
+        compeletedTasksHidden = !compeletedTasksHidden
         delegate?.showButton(compeletedTasksHidden)
     }
 }
