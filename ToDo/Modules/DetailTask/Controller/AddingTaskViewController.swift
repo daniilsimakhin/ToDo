@@ -10,7 +10,7 @@ import UIKit
 protocol AddingTaskViewControllerDelegate {
     func saveNewTask(newTask: Task)
     func saveChangedTask(oldTask: Task, newTask: Task, indexPath: IndexPath)
-    func deleteCurrentTask(id: String)
+    func deleteCurrentTask(id: String, indexPath: IndexPath)
 }
 
 final class AddingTaskViewController: UIViewController {
@@ -252,7 +252,7 @@ final class AddingTaskViewController: UIViewController {
         
         alert.addAction(UIAlertAction(title: "Указать другую дату", style: .default) { action in
             DispatchQueue.main.async {
-                self.datePicker.setDate(Date().addingTimeInterval(60 * 24 * 24), animated: true)
+                self.datePicker.setDate(Date.tomorrow, animated: true)
             }
         })
         
@@ -288,14 +288,11 @@ final class AddingTaskViewController: UIViewController {
     }
     
     @objc private func didTapDeleteButton(sender: UIButton!) {
-        if let id = task?.id {
+        if let id = task?.id, let indexPath = indexPath {
             dismiss(animated: true) {
-                self.delegate?.deleteCurrentTask(id: id)
+                self.delegate?.deleteCurrentTask(id: id, indexPath: indexPath)
             }
         } else {
-            textView.text.removeAll()
-            importanceSegmentedControl.selectedSegmentIndex = 1
-            setSwitch(state: false)
             dismiss(animated: true)
         }
     }
@@ -308,7 +305,7 @@ final class AddingTaskViewController: UIViewController {
         if let oldTask = self.task {
             let newTask = Task(id: oldTask.id,
                                    text: textView.text,
-                                   importance: Importance.convertFromIndex(index: importanceSegmentedControl.selectedSegmentIndex),
+                                   importance: Importance.allCases[importanceSegmentedControl.selectedSegmentIndex],
                                    deadline: dateSwitch.isOn ? datePicker.date : nil,
                                    isComplete: oldTask.isComplete,
                                    dateCreated: oldTask.dateCreated,
@@ -319,7 +316,7 @@ final class AddingTaskViewController: UIViewController {
         } else {
             let newTask = Task(id: UUID().uuidString,
                                    text: textView.text,
-                                   importance: Importance.convertFromIndex(index: importanceSegmentedControl.selectedSegmentIndex),
+                               importance: Importance.allCases[importanceSegmentedControl.selectedSegmentIndex],
                                    deadline: dateSwitch.isOn ? datePicker.date : nil,
                                    isComplete: false,
                                    dateCreated: Date(),

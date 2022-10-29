@@ -8,12 +8,12 @@
 import UIKit
 
 protocol TaskTableViewCellDelegate {
-    func updateCell (check: Bool, task: Task)
+    func setStateTask(state: Bool, task: Task)
 }
 
 class TaskTableViewCell: UITableViewCell {
     
-    var delegate: TaskTableViewCellDelegate?
+    var delegate: TaskTableViewCellDelegate!
     static var identifire = String(describing: TaskTableViewCell.self)
     var state = false
     var task: Task?
@@ -42,6 +42,7 @@ class TaskTableViewCell: UITableViewCell {
     private let title: UILabel = {
         let title = UILabel()
         title.text = String()
+        title.font = .regular
         title.textColor = Constans.Colors.textColor
         title.numberOfLines = 3
         return title
@@ -52,7 +53,6 @@ class TaskTableViewCell: UITableViewCell {
         dateStackView.alignment = .leading
         dateStackView.distribution = .fill
         dateStackView.spacing = 2
-        dateStackView.translatesAutoresizingMaskIntoConstraints = false
         dateStackView.isHidden = true
         return dateStackView
     }()
@@ -68,7 +68,7 @@ class TaskTableViewCell: UITableViewCell {
     private let dateTitle: UILabel = {
         let dateTitle = UILabel()
         dateTitle.text = String()
-        dateTitle.font = .systemFont(ofSize: 15)
+        dateTitle.font = .caption
         dateTitle.textColor = Constans.Colors.secondaryTextColor
         return dateTitle
     }()
@@ -84,7 +84,7 @@ class TaskTableViewCell: UITableViewCell {
     
     @objc func checkboxPressedButton(sender: UIButton!) {
         changeStateCheckbox(!state)
-        delegate?.updateCell(check: state, task: task!)
+        delegate.setStateTask(state: state, task: task!)
     }
     
     func configure(task: Task) {
@@ -93,16 +93,8 @@ class TaskTableViewCell: UITableViewCell {
         changeStateCheckbox(task.isComplete)
         
         if let deadline = task.deadline {
-            let dateFormatterGet = DateFormatter()
-            dateFormatterGet.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-
-            let dateFormatterPrint = DateFormatter()
-            dateFormatterPrint.dateFormat = "dd MMMM"
-            
-            let date: NSDate? = dateFormatterGet.date(from: dateFormatterGet.string(from: deadline)) as NSDate?
-            
             dateStackView.isHidden = false
-            dateTitle.text = dateFormatterPrint.string(from: date! as Date)
+            dateTitle.text = DateFormatter.stringFromDate(date: deadline, inputType: "yyyy-MM-dd'T'HH:mm:ssZ", outputType: "dd MMMM")
         } else {
             dateStackView.isHidden = true
             dateTitle.text = nil
@@ -154,7 +146,7 @@ class TaskTableViewCell: UITableViewCell {
     
     private func setupUI() {
         accessoryType = .disclosureIndicator
-        self.backgroundColor = Constans.Colors.mainViewColor
+        backgroundColor = Constans.Colors.mainViewColor
     
         contentView.addSubview(checkbox)
         contentView.addSubview(stackView)

@@ -8,14 +8,14 @@
 import UIKit
 
 protocol TaskTableViewHeaderFooterViewDelegate {
-    func showButton(_ check: Bool)
+    func setStateShowTask(_ state: Bool)
 }
 
 class TaskTableViewHeaderFooterView: UITableViewHeaderFooterView {
     
     static let identifire = String(describing: TaskTableViewHeaderFooterView.self)
     
-    var delegate: TaskTableViewHeaderFooterViewDelegate?
+    var delegate: TaskTableViewHeaderFooterViewDelegate!
     
     var completedTaskCount = 0 {
         didSet {
@@ -37,7 +37,7 @@ class TaskTableViewHeaderFooterView: UITableViewHeaderFooterView {
         let title = UILabel()
         title.textColor = Constans.Colors.secondaryTextColor
         title.textAlignment = .left
-        title.font = .preferredFont(forTextStyle: .headline)
+        title.font = .caption
         title.translatesAutoresizingMaskIntoConstraints = false
         return title
     }()
@@ -46,7 +46,7 @@ class TaskTableViewHeaderFooterView: UITableViewHeaderFooterView {
         showButton.setTitle("Показать", for: .normal)
         showButton.setTitleColor(Constans.Colors.navBarTaskColor, for: .normal)
         showButton.contentHorizontalAlignment = .right
-        showButton.titleLabel?.font = .preferredFont(forTextStyle: .callout)
+        showButton.titleLabel?.font = .bold
         showButton.addTarget(self, action: #selector(showButtonPressed(sender:)), for: .touchUpInside)
         showButton.translatesAutoresizingMaskIntoConstraints = false
         return showButton
@@ -82,6 +82,6 @@ class TaskTableViewHeaderFooterView: UITableViewHeaderFooterView {
     
     @objc func showButtonPressed(sender: UIButton!) {
         compeletedTasksHidden = !compeletedTasksHidden
-        delegate?.showButton(compeletedTasksHidden)
+        delegate.setStateShowTask(compeletedTasksHidden)
     }
 }

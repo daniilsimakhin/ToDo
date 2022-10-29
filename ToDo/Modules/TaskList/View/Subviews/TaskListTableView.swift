@@ -8,7 +8,7 @@
 import UIKit
 
 protocol TaskListTableViewActionDelegate {
-    func updateCell(isComplete: Bool, task: Task)
+    func setCompletedTask(isComplete: Bool, task: Task)
     func setVisibilityCompletedTasks(_ isCompleteTasksHidden: Bool)
     func swipeDeleteAction(_ indexPath: IndexPath)
     func swipeDoneAction(_ indexPath: IndexPath)
@@ -16,18 +16,17 @@ protocol TaskListTableViewActionDelegate {
 }
 
 protocol TaskListTableViewDataSourceDelegate {
-    func taskListTableView(_ tableView: TaskListTableView, numberOfRowsInSection section: Int) -> Int
-    func taskListTableView(_ tableView: TaskListTableView, cellForRowAt indexPath: IndexPath) -> Task
-    func numberOfSections(in tableView: TaskListTableView) -> Int
+    func taskListTableView(numberOfRowsInSection section: Int) -> Int
+    func taskListTableView(cellForRowAt indexPath: IndexPath) -> Task
+    func numberOfSections() -> Int
     func numberOfCompletedTasks() -> Int
+    func getCompletedTasksHidden() -> Bool
 }
 
 class TaskListTableView: UITableView {
     
     var actionDelegate: TaskListTableViewActionDelegate!
     var dataSourceDelegate: TaskListTableViewDataSourceDelegate!
-    
-    var isCompleteTasksHidden = true
     
     override init(frame: CGRect, style: UITableView.Style) {
         super.init(frame: frame, style: style)
@@ -47,8 +46,8 @@ private extension TaskListTableView {
         dataSource = self
         rowHeight = UITableView.automaticDimension
         estimatedRowHeight = 70
-        translatesAutoresizingMaskIntoConstraints = false
         backgroundColor = Constans.Colors.backgroundColor
+        translatesAutoresizingMaskIntoConstraints = false
     }
 }
 
@@ -56,19 +55,19 @@ private extension TaskListTableView {
 
 extension TaskListTableView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dataSourceDelegate.numberOfSections(in: self)
+        return dataSourceDelegate.taskListTableView(numberOfRowsInSection: section)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TaskTableViewCell.identifire, for: indexPath) as? TaskTableViewCell else { fatalError("Cannot create cell with type - \(TaskTableViewCell.self)") }
-        let task = dataSourceDelegate.taskListTableView(self, cellForRowAt: indexPath)
+        let task = dataSourceDelegate.taskListTableView(cellForRowAt: indexPath)
         cell.delegate = self
         cell.configure(task: task)
         return cell
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        dataSourceDelegate.numberOfSections(in: self)
+        return dataSourceDelegate.numberOfSections()
     }
 }
 
@@ -78,7 +77,7 @@ extension TaskListTableView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section == 0 {
             guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: TaskTableViewHeaderFooterView.identifire) as? TaskTableViewHeaderFooterView else { fatalError("Cannot create cell with type - \(TaskTableViewHeaderFooterView.self)") }
-            headerView.configure(compeletedTask: dataSourceDelegate.numberOfCompletedTasks(), isHidden: isCompleteTasksHidden)
+            headerView.configure(compeletedTask: dataSourceDelegate.numberOfCompletedTasks(), isHidden: dataSourceDelegate.getCompletedTasksHidden())
             headerView.delegate = self
             return headerView
         } else {
@@ -124,15 +123,15 @@ extension TaskListTableView: UITableViewDelegate {
 //MARK: - TaskTableViewCellDelegate
 
 extension TaskListTableView: TaskTableViewCellDelegate {
-    func updateCell(check: Bool, task: Task) {
-        actionDelegate.updateCell(isComplete: check, task: task)
+    func setStateTask(state: Bool, task: Task) {
+        actionDelegate.setCompletedTask(isComplete: state, task: task)
     }
 }
 
 //MARK: - TaskTableViewHeaderFooterViewDelegate
 
 extension TaskListTableView: TaskTableViewHeaderFooterViewDelegate {
-    func showButton(_ check: Bool) {
-        actionDelegate.setVisibilityCompletedTasks(check)
+    func setStateShowTask(_ state: Bool) {
+        actionDelegate.setVisibilityCompletedTasks(state)
     }
 }
