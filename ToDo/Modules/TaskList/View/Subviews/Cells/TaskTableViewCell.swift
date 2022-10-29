@@ -8,7 +8,7 @@
 import UIKit
 
 protocol TaskTableViewCellDelegate {
-    func setStateTask(state: Bool, task: Task)
+    func setStateTask(state: Bool, task: TaskModel)
 }
 
 class TaskTableViewCell: UITableViewCell {
@@ -16,7 +16,7 @@ class TaskTableViewCell: UITableViewCell {
     var delegate: TaskTableViewCellDelegate!
     static var identifire = String(describing: TaskTableViewCell.self)
     var state = false
-    var task: Task?
+    var task: TaskModel?
 
     private var checkbox: UIButton = {
         let checkbox = UIButton()
@@ -87,7 +87,7 @@ class TaskTableViewCell: UITableViewCell {
         delegate.setStateTask(state: state, task: task!)
     }
     
-    func configure(task: Task) {
+    func configure(task: TaskModel) {
         self.task = task
         title.text = task.text
         changeStateCheckbox(task.isComplete)

@@ -1,5 +1,5 @@
 //
-//  Task.swift
+//  TaskModel.swift
 //  ToDo
 //
 //  Created by Даниил Симахин on 11.08.2022.
@@ -13,7 +13,7 @@ enum Importance: String, Codable, CaseIterable {
     case important
 }
 
-struct Task: Codable, Equatable {
+struct TaskModel: Codable {
     let id: String
     let text: String
     let importance: Importance

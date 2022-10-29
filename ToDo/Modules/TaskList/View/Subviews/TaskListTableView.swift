@@ -8,7 +8,7 @@
 import UIKit
 
 protocol TaskListTableViewActionDelegate {
-    func setCompletedTask(isComplete: Bool, task: Task)
+    func setCompletedTask(isComplete: Bool, task: TaskModel)
     func setVisibilityCompletedTasks(_ isCompleteTasksHidden: Bool)
     func swipeDeleteAction(_ indexPath: IndexPath)
     func swipeDoneAction(_ indexPath: IndexPath)
@@ -17,7 +17,7 @@ protocol TaskListTableViewActionDelegate {
 
 protocol TaskListTableViewDataSourceDelegate {
     func taskListTableView(numberOfRowsInSection section: Int) -> Int
-    func taskListTableView(cellForRowAt indexPath: IndexPath) -> Task
+    func taskListTableView(cellForRowAt indexPath: IndexPath) -> TaskModel
     func numberOfSections() -> Int
     func numberOfCompletedTasks() -> Int
     func getCompletedTasksHidden() -> Bool
@@ -123,7 +123,7 @@ extension TaskListTableView: UITableViewDelegate {
 //MARK: - TaskTableViewCellDelegate
 
 extension TaskListTableView: TaskTableViewCellDelegate {
-    func setStateTask(state: Bool, task: Task) {
+    func setStateTask(state: Bool, task: TaskModel) {
         actionDelegate.setCompletedTask(isComplete: state, task: task)
     }
 }

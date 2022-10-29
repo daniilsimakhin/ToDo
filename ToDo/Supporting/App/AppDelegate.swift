@@ -51,10 +51,10 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
             let taskService = TaskService()
             taskService.loadTasks()
             if let taskData = userInfo["Task"] as? Data,
-               let task = try? JSONDecoder().decode(Task.self, from: taskData),
+               let task = try? JSONDecoder().decode(TaskModel.self, from: taskData),
                let index = taskService.tasks.firstIndex(where: { $0.id == task.id }) {
                 taskService.deleteTask(id: task.id)
-                taskService.appendTask(task: Task(id: task.id, text: task.text, importance: task.importance, deadline: task.deadline, isComplete: !task.isComplete, dateCreated: task.dateCreated, dateChanged: Date()), indexPath: IndexPath(row: index, section: 0))
+                taskService.appendTask(task: TaskModel(id: task.id, text: task.text, importance: task.importance, deadline: task.deadline, isComplete: !task.isComplete, dateCreated: task.dateCreated, dateChanged: Date()), indexPath: IndexPath(row: index, section: 0))
                 taskService.saveTasks()
             }
         }

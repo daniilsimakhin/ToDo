@@ -7,19 +7,19 @@
 import Foundation
 
 protocol TaskBaseService {
-    var tasks: [Task] { get }
+    var tasks: [TaskModel] { get }
     
-    func appendTask(task: Task, indexPath: IndexPath?)
+    func appendTask(task: TaskModel, indexPath: IndexPath?)
     func deleteTask(id: String)
     func replaceTask(indexPath: IndexPath)
-    func replaceTask(task: Task)
+    func replaceTask(task: TaskModel)
     func saveTasks()
     func loadTasks()
 }
 
 class TaskService: TaskBaseService {
     
-    var tasks = [Task]()
+    var tasks = [TaskModel]()
     
     private var filePath: URL? {
         let fileName = "ToDoTasks.json"
@@ -28,11 +28,11 @@ class TaskService: TaskBaseService {
         return fileUrl
     }
     
-    func replaceTask(task: Task) {
+    func replaceTask(task: TaskModel) {
         loadTasks()
         for (index, value) in tasks.enumerated() {
             if value.id == task.id {
-                let newTask = Task(id: task.id, text: task.text, importance: task.importance, deadline: task.deadline, isComplete: !task.isComplete, dateCreated: task.dateCreated, dateChanged: task.dateChanged)
+                let newTask = TaskModel(id: task.id, text: task.text, importance: task.importance, deadline: task.deadline, isComplete: !task.isComplete, dateCreated: task.dateCreated, dateChanged: task.dateChanged)
                 tasks[index] = newTask
                 saveTasks()
                 return
@@ -45,7 +45,7 @@ class TaskService: TaskBaseService {
         let task = tasks[indexPath.row]
         for (index, value) in tasks.enumerated() {
             if value.id == task.id {
-                let newTask = Task(id: task.id, text: task.text, importance: task.importance, deadline: task.deadline, isComplete: !task.isComplete, dateCreated: task.dateCreated, dateChanged: task.dateChanged)
+                let newTask = TaskModel(id: task.id, text: task.text, importance: task.importance, deadline: task.deadline, isComplete: !task.isComplete, dateCreated: task.dateCreated, dateChanged: task.dateChanged)
                 tasks[index] = newTask
                 saveTasks()
                 return
@@ -53,10 +53,10 @@ class TaskService: TaskBaseService {
         }
     }
     
-    func appendTask(task: Task, indexPath: IndexPath?) {
+    func appendTask(task: TaskModel, indexPath: IndexPath?) {
         var task = task
         while tasks.contains(where: { $0.id == task.id }) {
-            task = Task(id: UUID().uuidString, text: task.text, importance: task.importance, deadline: task.deadline, isComplete: task.isComplete, dateCreated: task.dateCreated, dateChanged: task.dateChanged)
+            task = TaskModel(id: UUID().uuidString, text: task.text, importance: task.importance, deadline: task.deadline, isComplete: task.isComplete, dateCreated: task.dateCreated, dateChanged: task.dateChanged)
         }
         if let index = indexPath?.row {
             tasks.insert(task, at: index)
@@ -102,7 +102,7 @@ class TaskService: TaskBaseService {
         }
         do {
             let data = try Data(contentsOf: fileURL)
-            let json = try JSONDecoder().decode([Task].self, from: data)
+            let json = try JSONDecoder().decode([TaskModel].self, from: data)
             tasks = json
         } catch {
             print("Error with loading tasks from JSON, \(error.localizedDescription)")

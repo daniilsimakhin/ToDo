@@ -30,7 +30,7 @@ class NotificationService {
         }
     }
     
-    func scheduleNotification(_ task: Task) {
+    func scheduleNotification(_ task: TaskModel) {
         let content = UNMutableNotificationContent()
         content.title = "ToDo"
         content.body = task.text
@@ -61,7 +61,7 @@ class NotificationService {
         }
     }
     
-    func removeScheduledNotification(_ task: Task) {
+    func removeScheduledNotification(_ task: TaskModel) {
         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [task.id])
     }
 }

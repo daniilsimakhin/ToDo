@@ -16,12 +16,12 @@ protocol TaskListViewInput {
 protocol TaskListViewDelegate {
     func appendTask()
     func numberOfRowsInSection(_ section: Int) -> Int
-    func cellForRowAt(_ indexPath: IndexPath) -> Task
+    func cellForRowAt(_ indexPath: IndexPath) -> TaskModel
     func numberOfSections() -> Int
     func numberOfCompletedTasks() -> Int
     func getCompletedTasksHidden() -> Bool
     
-    func setCompletedTask(_ isComplete: Bool, _ task: Task)
+    func setCompletedTask(_ isComplete: Bool, _ task: TaskModel)
     func setVisibilityCompletedTasks(_ isCompleteTasksHidden: Bool)
     func swipeDeleteAction(_ indexPath: IndexPath)
     func swipeDoneAction(_ indexPath: IndexPath)
@@ -94,7 +94,7 @@ private extension TaskListView {
 //MARK: - TaskListTableViewActionDelegate
 
 extension TaskListView: TaskListTableViewActionDelegate {
-    func setCompletedTask(isComplete: Bool, task: Task) {
+    func setCompletedTask(isComplete: Bool, task: TaskModel) {
         delegate.setCompletedTask(isComplete, task)
     }
     
@@ -129,7 +129,7 @@ extension TaskListView: TaskListTableViewDataSourceDelegate {
         return delegate.numberOfRowsInSection(section)
     }
     
-    func taskListTableView(cellForRowAt indexPath: IndexPath) -> Task {
+    func taskListTableView(cellForRowAt indexPath: IndexPath) -> TaskModel {
         return delegate.cellForRowAt(indexPath)
     }
     

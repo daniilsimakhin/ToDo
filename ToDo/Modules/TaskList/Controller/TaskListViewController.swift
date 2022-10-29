@@ -51,7 +51,7 @@ extension TaskListViewController: TaskListViewDelegate {
         }
     }
     
-    func cellForRowAt(_ indexPath: IndexPath) -> Task {
+    func cellForRowAt(_ indexPath: IndexPath) -> TaskModel {
         return taskService.tasks[indexPath.row]
     }
     
@@ -63,7 +63,7 @@ extension TaskListViewController: TaskListViewDelegate {
         return numberCompletedTasks
     }
     
-    func setCompletedTask(_ isComplete: Bool, _ task: Task) {
+    func setCompletedTask(_ isComplete: Bool, _ task: TaskModel) {
         taskService.replaceTask(task: task)
     }
     
@@ -113,7 +113,7 @@ extension TaskListViewController: AddingTaskViewControllerDelegate {
 //        taskListViewInput.reloadTable()
     }
     
-    func saveNewTask(newTask: Task) {
+    func saveNewTask(newTask: TaskModel) {
         taskService.loadTasks()
         taskService.appendTask(task: newTask, indexPath: nil)
         if newTask.deadline != nil {
@@ -123,7 +123,7 @@ extension TaskListViewController: AddingTaskViewControllerDelegate {
         taskListViewInput.reloadTable()
     }
     
-    func saveChangedTask(oldTask: Task, newTask: Task, indexPath: IndexPath) {
+    func saveChangedTask(oldTask: TaskModel, newTask: TaskModel, indexPath: IndexPath) {
         taskService.loadTasks()
         taskService.deleteTask(id: oldTask.id)
         if oldTask.importance == newTask.importance {

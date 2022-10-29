@@ -12,7 +12,7 @@ class ToDoTests: XCTestCase {
     
     func testTask1() {
         let dateCreated = Date()
-        let task = Task(id: "01", text: "Hello guy", importance: .ordinary, deadline: nil, isComplete: false, dateCreated: dateCreated, dateChanged: nil)
+        let task = TaskModel(id: "01", text: "Hello guy", importance: .ordinary, deadline: nil, isComplete: false, dateCreated: dateCreated, dateChanged: nil)
         
         XCTAssertEqual(task.id, "01")
         XCTAssertEqual(task.text, "Hello guy")
@@ -26,7 +26,7 @@ class ToDoTests: XCTestCase {
     func testTask2() {
         let dateCreated = Date()
         let dateChanged = Date()
-        let task = Task(id: "02", text: "", importance: .important, deadline: Date.tomorrow, isComplete: true, dateCreated: dateCreated, dateChanged: dateChanged)
+        let task = TaskModel(id: "02", text: "", importance: .important, deadline: Date.tomorrow, isComplete: true, dateCreated: dateCreated, dateChanged: dateChanged)
         
         XCTAssertEqual(task.id, "02")
         XCTAssertEqual(task.text, "")
@@ -38,9 +38,9 @@ class ToDoTests: XCTestCase {
     }
     
     func testTaskService() {
-        let task1 = Task(id: "1", text: "1", importance: .ordinary, deadline: nil, isComplete: true, dateCreated: Date(), dateChanged: Date())
-        let task2 = Task(id: "2", text: "2", importance: .important, deadline: Date.tomorrow, isComplete: true, dateCreated: Date(), dateChanged: Date())
-        let task3 = Task(id: "3", text: "3", importance: .unimportant, deadline: nil, isComplete: false, dateCreated: Date(), dateChanged: nil)
+        let task1 = TaskModel(id: "1", text: "1", importance: .ordinary, deadline: nil, isComplete: true, dateCreated: Date(), dateChanged: Date())
+        let task2 = TaskModel(id: "2", text: "2", importance: .important, deadline: Date.tomorrow, isComplete: true, dateCreated: Date(), dateChanged: Date())
+        let task3 = TaskModel(id: "3", text: "3", importance: .unimportant, deadline: nil, isComplete: false, dateCreated: Date(), dateChanged: nil)
         
         let taskService = TaskService()
         XCTAssertEqual(taskService.tasks.count, 0)

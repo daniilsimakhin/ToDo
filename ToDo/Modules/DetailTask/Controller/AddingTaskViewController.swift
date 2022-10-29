@@ -8,14 +8,14 @@
 import UIKit
 
 protocol AddingTaskViewControllerDelegate {
-    func saveNewTask(newTask: Task)
-    func saveChangedTask(oldTask: Task, newTask: Task, indexPath: IndexPath)
+    func saveNewTask(newTask: TaskModel)
+    func saveChangedTask(oldTask: TaskModel, newTask: TaskModel, indexPath: IndexPath)
     func deleteCurrentTask(id: String, indexPath: IndexPath)
 }
 
 final class AddingTaskViewController: UIViewController {
     
-    private var task: Task?
+    private var task: TaskModel?
     private var indexPath: IndexPath?
     private var keyboardIsHidden = true
     var delegate: AddingTaskViewControllerDelegate?
@@ -259,7 +259,7 @@ final class AddingTaskViewController: UIViewController {
         self.present(alert, animated: true)
     }
     //MARK: - Public functions
-    func configure(task: Task?, indexPath: IndexPath?) {
+    func configure(task: TaskModel?, indexPath: IndexPath?) {
         self.indexPath = indexPath
         guard let task = task else {
             self.task = nil
@@ -303,7 +303,7 @@ final class AddingTaskViewController: UIViewController {
             return
         }
         if let oldTask = self.task {
-            let newTask = Task(id: oldTask.id,
+            let newTask = TaskModel(id: oldTask.id,
                                    text: textView.text,
                                    importance: Importance.allCases[importanceSegmentedControl.selectedSegmentIndex],
                                    deadline: dateSwitch.isOn ? datePicker.date : nil,
@@ -314,7 +314,7 @@ final class AddingTaskViewController: UIViewController {
                 self.delegate?.saveChangedTask(oldTask: oldTask, newTask: newTask, indexPath: self.indexPath!)
             }
         } else {
-            let newTask = Task(id: UUID().uuidString,
+            let newTask = TaskModel(id: UUID().uuidString,
                                    text: textView.text,
                                importance: Importance.allCases[importanceSegmentedControl.selectedSegmentIndex],
                                    deadline: dateSwitch.isOn ? datePicker.date : nil,
