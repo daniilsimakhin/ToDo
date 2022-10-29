@@ -11,11 +11,10 @@ protocol TaskBaseService {
     var tasks: [Task] { get }
     
     func appendTask(task: Task, indexPath: IndexPath?)
-    
     func deleteTask(id: String)
-    
+    func replaceTask(indexPath: IndexPath)
+    func replaceTask(task: Task)
     func saveTasks()
-    
     func loadTasks()
 }
 
@@ -28,6 +27,31 @@ class TaskService: TaskBaseService {
         guard let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return nil }
         let fileUrl = documentDirectory.appendingPathComponent(fileName)
         return fileUrl
+    }
+    
+    func replaceTask(task: Task) {
+        loadTasks()
+        for (index, value) in tasks.enumerated() {
+            if value.id == task.id {
+                let newTask = Task(id: task.id, text: task.text, importance: task.importance, deadline: task.deadline, isComplete: !task.isComplete, dateCreated: task.dateCreated, dateChanged: task.dateChanged)
+                tasks[index] = newTask
+                saveTasks()
+                return
+            }
+        }
+    }
+    
+    func replaceTask(indexPath: IndexPath) {
+        loadTasks()
+        let task = tasks[indexPath.row]
+        for (index, value) in tasks.enumerated() {
+            if value.id == task.id {
+                let newTask = Task(id: task.id, text: task.text, importance: task.importance, deadline: task.deadline, isComplete: !task.isComplete, dateCreated: task.dateCreated, dateChanged: task.dateChanged)
+                tasks[index] = newTask
+                saveTasks()
+                return
+            }
+        }
     }
     
     func appendTask(task: Task, indexPath: IndexPath?) {
