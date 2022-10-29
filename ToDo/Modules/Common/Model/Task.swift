@@ -18,7 +18,7 @@ struct Task: Codable, Equatable {
     let text: String
     let importance: Importance
     let deadline: Date?
-    var isComplete: Bool
+    let isComplete: Bool
     let dateCreated: Date
     let dateChanged: Date?
     
