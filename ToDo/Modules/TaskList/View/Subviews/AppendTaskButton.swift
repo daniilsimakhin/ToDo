@@ -1,10 +1,3 @@
-//
-//  AppendTaskButton.swift
-//  ToDo
-//
-//  Created by Даниил Симахин on 26.10.2022.
-//
-
 import UIKit
 
 class AppendTaskButton: UIButton {

@@ -1,10 +1,3 @@
-//
-//  TaskTableViewHeaderFooterView.swift
-//  ToDo
-//
-//  Created by Даниил Симахин on 18.08.2022.
-//
-
 import UIKit
 
 protocol TaskTableViewHeaderFooterViewDelegate: AnyObject {

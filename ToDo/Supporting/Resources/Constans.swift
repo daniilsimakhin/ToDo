@@ -1,10 +1,3 @@
-//
-//  Constans.swift
-//  ToDo
-//
-//  Created by Даниил Симахин on 19.08.2022.
-//
-
 import Foundation
 import UIKit
 

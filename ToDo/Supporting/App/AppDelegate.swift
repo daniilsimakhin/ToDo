@@ -1,10 +1,3 @@
-//
-//  AppDelegate.swift
-//  ToDo
-//
-//  Created by Даниил Симахин on 11.08.2022.
-//
-
 import UIKit
 import UserNotifications
 

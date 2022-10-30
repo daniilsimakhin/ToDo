@@ -1,10 +1,3 @@
-//
-//  ToDoTests.swift
-//  ToDoTests
-//
-//  Created by Даниил Симахин on 15.08.2022.
-//
-
 import XCTest
 @testable
 import ToDo

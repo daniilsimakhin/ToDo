@@ -1,10 +1,3 @@
-//
-//  UIFontExtension.swift
-//  ToDo
-//
-//  Created by Даниил Симахин on 28.10.2022.
-//
-
 import UIKit
 
 extension UIFont {

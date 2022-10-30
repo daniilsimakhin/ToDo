@@ -1,10 +1,3 @@
-//
-//  TaskTableViewCell.swift
-//  ToDo
-//
-//  Created by Даниил Симахин on 17.08.2022.
-//
-
 import UIKit
 
 protocol TaskTableViewCellDelegate: AnyObject {

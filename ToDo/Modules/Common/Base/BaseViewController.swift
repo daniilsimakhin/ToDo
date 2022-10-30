@@ -1,10 +1,3 @@
-//
-//  BaseViewController.swift
-//  ToDo
-//
-//  Created by Даниил Симахин on 27.10.2022.
-//
-
 import UIKit
 
 class BaseViewController<T: UIView>: UIViewController {

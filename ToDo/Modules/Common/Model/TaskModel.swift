@@ -1,10 +1,3 @@
-//
-//  TaskModel.swift
-//  ToDo
-//
-//  Created by Даниил Симахин on 11.08.2022.
-//
-
 import Foundation
 
 enum Importance: String, Codable, CaseIterable {
