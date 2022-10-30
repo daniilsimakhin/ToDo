@@ -30,7 +30,7 @@ class TaskTableViewHeaderFooterView: UITableViewHeaderFooterView {
         let title = UILabel()
         title.textColor = Constans.Colors.secondaryTextColor
         title.textAlignment = .left
-        title.font = .caption
+        title.font = .regularCaption
         title.translatesAutoresizingMaskIntoConstraints = false
         return title
     }()
@@ -39,7 +39,7 @@ class TaskTableViewHeaderFooterView: UITableViewHeaderFooterView {
         showButton.setTitle("Показать", for: .normal)
         showButton.setTitleColor(Constans.Colors.navBarTaskColor, for: .normal)
         showButton.contentHorizontalAlignment = .right
-        showButton.titleLabel?.font = .bold
+        showButton.titleLabel?.font = .boldCaption
         showButton.addTarget(self, action: #selector(showButtonPressed(sender:)), for: .touchUpInside)
         showButton.translatesAutoresizingMaskIntoConstraints = false
         return showButton

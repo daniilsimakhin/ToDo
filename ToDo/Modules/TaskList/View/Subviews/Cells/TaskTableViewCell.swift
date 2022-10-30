@@ -35,7 +35,7 @@ class TaskTableViewCell: UITableViewCell {
     private let title: UILabel = {
         let title = UILabel()
         title.text = String()
-        title.font = .regular
+        title.font = .regularBody
         title.textColor = Constans.Colors.textColor
         title.numberOfLines = 3
         return title
@@ -61,7 +61,7 @@ class TaskTableViewCell: UITableViewCell {
     private let dateTitle: UILabel = {
         let dateTitle = UILabel()
         dateTitle.text = String()
-        dateTitle.font = .caption
+        dateTitle.font = .regularCaption
         dateTitle.textColor = Constans.Colors.secondaryTextColor
         return dateTitle
     }()
