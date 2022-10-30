@@ -19,7 +19,7 @@ protocol TaskBaseService {
 
 class TaskService: TaskBaseService {
     
-    var tasks = [TaskModel]()
+    var tasks = [TaskModel]()//сделать многомерный массив для различных списков
     
     private var filePath: URL? {
         let fileName = "ToDoTasks.json"
