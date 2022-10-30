@@ -16,9 +16,9 @@
 		A501281C28AFF4870042B166 /* Constans.swift in Sources */ = {isa = PBXBuildFile; fileRef = A501281B28AFF4870042B166 /* Constans.swift */; };
 		A501281F28BD32510042B166 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A501281E28BD32510042B166 /* NotificationService.swift */; };
 		A546031D290A67FC00848BA7 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A546031C290A67FC00848BA7 /* BaseViewController.swift */; };
-		A5460321290BD5B100848BA7 /* UIFontExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5460320290BD5B100848BA7 /* UIFontExtension.swift */; };
-		A5460323290BDCCD00848BA7 /* DateFormatterExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5460322290BDCCD00848BA7 /* DateFormatterExtension.swift */; };
-		A55AC1D929015A9F00B06F2A /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55AC1D829015A9F00B06F2A /* DateExtension.swift */; };
+		A5460321290BD5B100848BA7 /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5460320290BD5B100848BA7 /* UIFont+.swift */; };
+		A5460323290BDCCD00848BA7 /* DateFormatter+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5460322290BDCCD00848BA7 /* DateFormatter+.swift */; };
+		A55AC1D929015A9F00B06F2A /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55AC1D829015A9F00B06F2A /* Date+.swift */; };
 		A55AC1DB2902A5B700B06F2A /* DetailTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55AC1DA2902A5B700B06F2A /* DetailTaskView.swift */; };
 		A55AC1DD2902A5CF00B06F2A /* TaskListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55AC1DC2902A5CF00B06F2A /* TaskListView.swift */; };
 		A55AC1DF2902A60500B06F2A /* TaskListTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55AC1DE2902A60500B06F2A /* TaskListTableView.swift */; };
@@ -56,9 +56,9 @@
 		A501281B28AFF4870042B166 /* Constans.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constans.swift; sourceTree = "<group>"; };
 		A501281E28BD32510042B166 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		A546031C290A67FC00848BA7 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
-		A5460320290BD5B100848BA7 /* UIFontExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFontExtension.swift; sourceTree = "<group>"; };
-		A5460322290BDCCD00848BA7 /* DateFormatterExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterExtension.swift; sourceTree = "<group>"; };
-		A55AC1D829015A9F00B06F2A /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
+		A5460320290BD5B100848BA7 /* UIFont+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
+		A5460322290BDCCD00848BA7 /* DateFormatter+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+.swift"; sourceTree = "<group>"; };
+		A55AC1D829015A9F00B06F2A /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
 		A55AC1DA2902A5B700B06F2A /* DetailTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTaskView.swift; sourceTree = "<group>"; };
 		A55AC1DC2902A5CF00B06F2A /* TaskListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListView.swift; sourceTree = "<group>"; };
 		A55AC1DE2902A60500B06F2A /* TaskListTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListTableView.swift; sourceTree = "<group>"; };
@@ -258,9 +258,9 @@
 		A55AC1D729015A8400B06F2A /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				A5460322290BDCCD00848BA7 /* DateFormatterExtension.swift */,
-				A55AC1D829015A9F00B06F2A /* DateExtension.swift */,
-				A5460320290BD5B100848BA7 /* UIFontExtension.swift */,
+				A5460322290BDCCD00848BA7 /* DateFormatter+.swift */,
+				A55AC1D829015A9F00B06F2A /* Date+.swift */,
+				A5460320290BD5B100848BA7 /* UIFont+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -501,14 +501,14 @@
 			files = (
 				A501281528AD3A260042B166 /* TaskTableViewCell.swift in Sources */,
 				A501281F28BD32510042B166 /* NotificationService.swift in Sources */,
-				A5460321290BD5B100848BA7 /* UIFontExtension.swift in Sources */,
+				A5460321290BD5B100848BA7 /* UIFont+.swift in Sources */,
 				A5FF884428A55DBC00DEE875 /* TaskListViewController.swift in Sources */,
 				A5ECDD6529091744009CD6CC /* AppendTaskButton.swift in Sources */,
 				A501281C28AFF4870042B166 /* Constans.swift in Sources */,
 				A5FF884028A55DBC00DEE875 /* AppDelegate.swift in Sources */,
 				A5FF885C28A55E5900DEE875 /* TaskModel.swift in Sources */,
-				A55AC1D929015A9F00B06F2A /* DateExtension.swift in Sources */,
-				A5460323290BDCCD00848BA7 /* DateFormatterExtension.swift in Sources */,
+				A55AC1D929015A9F00B06F2A /* Date+.swift in Sources */,
+				A5460323290BDCCD00848BA7 /* DateFormatter+.swift in Sources */,
 				A55AC1DD2902A5CF00B06F2A /* TaskListView.swift in Sources */,
 				A55AC1DF2902A60500B06F2A /* TaskListTableView.swift in Sources */,
 				A501281928AE87850042B166 /* TaskTableViewHeaderFooterView.swift in Sources */,
