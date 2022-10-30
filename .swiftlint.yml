@@ -1,0 +1,34 @@
+excluded:
+  - Carthage
+  - Pods
+  - Source/ExcludedFolder
+  - Source/ExcludedFile.swift
+
+disabled_rules:
+  - vertical_whitespace # Строки не должны иметь завершающих пробелов.
+  - syntactic_sugar # Синтаксический сахар
+  - line_length # Длина строки
+  - type_body_length # Длина тела типов
+  - function_body_length # Длина тела функции
+  - force_cast # Принудительный кастинг типов
+  - force_try # Принудительный try
+  - colon # Интервал между двоеточиями
+  - trailing_whitespace # Строки не должны иметь завершающих пробелов.
+  - force_unwrapping # Следует избегать принудительной распаковки.
+  - implicit_return # Неявный возврат не должен быть строгим правилом.
+  - class_delegate_protocol # Протоколы делегатов должны относиться только к классам, чтобы на них можно было слабо ссылаться.
+  - file_length # Файлы не должны занимать слишком много строк.
+
+opt_in_rules :
+  - closure_end_indentation # Конец закрытия должен иметь тот же отступ, что и строка, с которой оно начинается.
+  - closure_spacing # Замыкающие выражения должны иметь один пробел внутри каждой фигурной скобки.
+  - operator_usage_whitespace # Операторы должны быть окружены одним пробелом, когда они используются.
+  - first_where # Предпочитайте использование .first(where:) вместо .filter { }.first в коллекциях.
+  - sorted_imports # Импорт должен быть отсортирован.
+  - switch_case_on_newline # Дела внутри переключателя всегда должны быть на новой строке
+  - overridden_super_call # Некоторые переопределенные методы всегда должны вызывать super
+  - unused_optional_binding # Предпочитайте != nil вместо let _ =
+  - empty_count # Предпочитайте проверку isEmpty вместо сравнения count с нулем.
+  - multiline_parameters # Параметры функций и методов должны быть либо в одной строке, либо по одному на строку.
+  - unneeded_parentheses_in_closure_argument # Скобки не нужны при объявлении аргументов закрытия.
+  - vertical_parameter_alignment_on_call # Параметры функции должны быть выровнены по вертикали, если они находятся в нескольких строках в вызове метода.

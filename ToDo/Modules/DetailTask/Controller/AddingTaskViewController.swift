@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol AddingTaskViewControllerDelegate {
+protocol AddingTaskViewControllerDelegate: AnyObject {
     func saveNewTask(newTask: TaskModel)
     func saveChangedTask(oldTask: TaskModel, newTask: TaskModel, indexPath: IndexPath)
     func deleteCurrentTask(id: String, indexPath: IndexPath)
@@ -132,7 +132,9 @@ final class AddingTaskViewController: UIViewController {
         deleteButton.translatesAutoresizingMaskIntoConstraints = false
         return deleteButton
     }()
-    //MARK: - ViewController functions
+    
+    // MARK: - ViewController functions
+    
     deinit {
         removeKeyboardNotifications()
     }
@@ -147,24 +149,26 @@ final class AddingTaskViewController: UIViewController {
         super.viewWillLayoutSubviews()
         setConstraints()
     }
-    //MARK: - Private functions
+    
+    // MARK: - Private functions
+    
     private func setSwitch(state: Bool) {
         dateSwitch.setOn(state, animated: true)
         if dateSwitch.isOn {
             NotificationService.shared.requestAuthorization { granted in
                 DispatchQueue.main.async {
                     if !granted {
-                        let ac = UIAlertController(title: "Уведомления отключены", message: "Чтобы использовать напоминания необходимо включить их в настройках", preferredStyle: .alert)
-                        ac.addAction(UIAlertAction(title: "Перейти в настройки", style: .default, handler: { _ in
+                        let alertController = UIAlertController(title: "Уведомления отключены", message: "Чтобы использовать напоминания необходимо включить их в настройках", preferredStyle: .alert)
+                        alertController.addAction(UIAlertAction(title: "Перейти в настройки", style: .default, handler: { _ in
                             guard let settingsURL = URL(string: UIApplication.openSettingsURLString) else { return }
                             if UIApplication.shared.canOpenURL(settingsURL) {
                                 UIApplication.shared.open(settingsURL) { _ in }
                             }
                         }))
-                        ac.addAction(UIAlertAction(title: "Отмена", style: .default, handler: { _ in
+                        alertController.addAction(UIAlertAction(title: "Отмена", style: .default, handler: { _ in
                             self.setSwitch(state: false)
                         }))
-                        self.present(ac, animated: true)
+                        self.present(alertController, animated: true)
                     }
                 }
             }
@@ -239,18 +243,18 @@ final class AddingTaskViewController: UIViewController {
             
             deleteButton.heightAnchor.constraint(equalToConstant: 56),
             deleteButton.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 20),
-            deleteButton.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -20),
+            deleteButton.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -20)
         ])
     }
     
     private func invalidDateAlert() {
         let alert = UIAlertController(title: "Ошибка", message: "Дата указана некорректно, отключите ее или укажите другую.", preferredStyle: .alert)
         
-        alert.addAction(UIAlertAction(title: "Отключить дату", style: .default) { action in
+        alert.addAction(UIAlertAction(title: "Отключить дату", style: .default) { _ in
             self.setSwitch(state: false)
         })
         
-        alert.addAction(UIAlertAction(title: "Указать другую дату", style: .default) { action in
+        alert.addAction(UIAlertAction(title: "Указать другую дату", style: .default) { _ in
             DispatchQueue.main.async {
                 self.datePicker.setDate(Date.tomorrow, animated: true)
             }
@@ -258,7 +262,7 @@ final class AddingTaskViewController: UIViewController {
         
         self.present(alert, animated: true)
     }
-    //MARK: - Public functions
+    // MARK: - Public functions
     func configure(task: TaskModel?, indexPath: IndexPath?) {
         self.indexPath = indexPath
         guard let task = task else {
@@ -282,7 +286,9 @@ final class AddingTaskViewController: UIViewController {
             setSwitch(state: false)
         }
     }
-    //MARK: - @objc functions
+    
+    // MARK: - @objc functions
+    
     @objc private func didTogleDateSwitch(sender: UISwitch!) {
         setSwitch(state: sender.isOn)
     }
@@ -304,23 +310,23 @@ final class AddingTaskViewController: UIViewController {
         }
         if let oldTask = self.task {
             let newTask = TaskModel(id: oldTask.id,
-                                   text: textView.text,
-                                   importance: Importance.allCases[importanceSegmentedControl.selectedSegmentIndex],
-                                   deadline: dateSwitch.isOn ? datePicker.date : nil,
-                                   isComplete: oldTask.isComplete,
-                                   dateCreated: oldTask.dateCreated,
-                                   dateChanged: Date())
+                                    text: textView.text,
+                                    importance: Importance.allCases[importanceSegmentedControl.selectedSegmentIndex],
+                                    deadline: dateSwitch.isOn ? datePicker.date : nil,
+                                    isComplete: oldTask.isComplete,
+                                    dateCreated: oldTask.dateCreated,
+                                    dateChanged: Date())
             self.dismiss(animated: true) {
                 self.delegate?.saveChangedTask(oldTask: oldTask, newTask: newTask, indexPath: self.indexPath!)
             }
         } else {
             let newTask = TaskModel(id: UUID().uuidString,
-                                   text: textView.text,
-                               importance: Importance.allCases[importanceSegmentedControl.selectedSegmentIndex],
-                                   deadline: dateSwitch.isOn ? datePicker.date : nil,
-                                   isComplete: false,
-                                   dateCreated: Date(),
-                                   dateChanged: Date())
+                                    text: textView.text,
+                                    importance: Importance.allCases[importanceSegmentedControl.selectedSegmentIndex],
+                                    deadline: dateSwitch.isOn ? datePicker.date : nil,
+                                    isComplete: false,
+                                    dateCreated: Date(),
+                                    dateChanged: Date())
             self.dismiss(animated: true) {
                 self.delegate?.saveNewTask(newTask: newTask)
             }
@@ -331,13 +337,17 @@ final class AddingTaskViewController: UIViewController {
         dismiss(animated: true)
     }
 }
-//MARK: - UIScrollViewDelegate
+
+// MARK: - UIScrollViewDelegate
+
 extension AddingTaskViewController: UIScrollViewDelegate {
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         textView.resignFirstResponder()
     }
 }
-//MARK: - KeyboardManage
+
+// MARK: - KeyboardManage
+
 extension AddingTaskViewController {
     private func registerForKeyboardNorifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)

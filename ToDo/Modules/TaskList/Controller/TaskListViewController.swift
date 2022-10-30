@@ -35,10 +35,9 @@ extension TaskListViewController: TaskListViewDelegate {
         taskService.loadTasks()
         if completedTasksHidden {
             var indexies = [String]()
-            for task in taskService.tasks {
-                if task.isComplete {
-                    indexies.append(task.id)
-                }
+            for task in taskService.tasks where task.isComplete {
+                indexies.append(task.id)
+                // было иф
             }
             for index in indexies {
                 taskService.deleteTask(id: index)
@@ -102,7 +101,7 @@ extension TaskListViewController: TaskListViewDelegate {
     }
 }
 
-//MARK: - AddingTaskViewControllerDelegate
+// MARK: - AddingTaskViewControllerDelegate
 
 extension TaskListViewController: AddingTaskViewControllerDelegate {
     func deleteCurrentTask(id: String, indexPath: IndexPath) {

@@ -19,7 +19,7 @@ protocol TaskBaseService {
 
 class TaskService: TaskBaseService {
     
-    var tasks = [TaskModel]()//сделать многомерный массив для различных списков
+    var tasks = [TaskModel]()// сделать многомерный массив для различных списков
     
     private var filePath: URL? {
         let fileName = "ToDoTasks.json"
@@ -30,26 +30,26 @@ class TaskService: TaskBaseService {
     
     func replaceTask(task: TaskModel) {
         loadTasks()
-        for (index, value) in tasks.enumerated() {
-            if value.id == task.id {
-                let newTask = TaskModel(id: task.id, text: task.text, importance: task.importance, deadline: task.deadline, isComplete: !task.isComplete, dateCreated: task.dateCreated, dateChanged: task.dateChanged)
-                tasks[index] = newTask
-                saveTasks()
-                return
-            }
+        for (index, value) in tasks.enumerated() where value.id == task.id {
+            // if value.id == task.id {
+            let newTask = TaskModel(id: task.id, text: task.text, importance: task.importance, deadline: task.deadline, isComplete: !task.isComplete, dateCreated: task.dateCreated, dateChanged: task.dateChanged)
+            tasks[index] = newTask
+            saveTasks()
+            return
+            // }
         }
     }
     
     func replaceTask(indexPath: IndexPath) {
         loadTasks()
         let task = tasks[indexPath.row]
-        for (index, value) in tasks.enumerated() {
-            if value.id == task.id {
-                let newTask = TaskModel(id: task.id, text: task.text, importance: task.importance, deadline: task.deadline, isComplete: !task.isComplete, dateCreated: task.dateCreated, dateChanged: task.dateChanged)
-                tasks[index] = newTask
-                saveTasks()
-                return
-            }
+        for (index, value) in tasks.enumerated() where value.id == task.id {
+            // if value.id == task.id {
+            let newTask = TaskModel(id: task.id, text: task.text, importance: task.importance, deadline: task.deadline, isComplete: !task.isComplete, dateCreated: task.dateCreated, dateChanged: task.dateChanged)
+            tasks[index] = newTask
+            saveTasks()
+            return
+            // }
         }
     }
     
@@ -75,11 +75,11 @@ class TaskService: TaskBaseService {
     }
     
     func deleteTask(id: String) {
-        for (index, task) in tasks.enumerated() {
-            if task.id == id {
-                tasks.remove(at: index)
-                return
-            }
+        for (index, task) in tasks.enumerated() where task.id == id {
+//            if task.id == id {
+            tasks.remove(at: index)
+//                return
+//            }
         }
         fatalError("No such task id exists")
     }

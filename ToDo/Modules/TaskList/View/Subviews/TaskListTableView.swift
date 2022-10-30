@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol TaskListTableViewActionDelegate {
+protocol TaskListTableViewActionDelegate: AnyObject {
     func setCompletedTask(isComplete: Bool, task: TaskModel)
     func setVisibilityCompletedTasks(_ isCompleteTasksHidden: Bool)
     func swipeDeleteAction(_ indexPath: IndexPath)
@@ -15,7 +15,7 @@ protocol TaskListTableViewActionDelegate {
     func didSelectRowAt(_ indexPath: IndexPath)
 }
 
-protocol TaskListTableViewDataSourceDelegate {
+protocol TaskListTableViewDataSourceDelegate: AnyObject {
     func taskListTableView(numberOfRowsInSection section: Int) -> Int
     func taskListTableView(cellForRowAt indexPath: IndexPath) -> TaskModel
     func numberOfSections() -> Int
@@ -51,7 +51,7 @@ private extension TaskListTableView {
     }
 }
 
-//MARK: - UITableViewDataSource
+// MARK: - UITableViewDataSource
 
 extension TaskListTableView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -71,7 +71,7 @@ extension TaskListTableView: UITableViewDataSource {
     }
 }
 
-//MARK: - UITableViewDelegate
+// MARK: - UITableViewDelegate
 
 extension TaskListTableView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -94,8 +94,7 @@ extension TaskListTableView: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") {
-            [weak self] (action, sourceView, completionHandler) in
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { [weak self] _, _, completionHandler in
             
             self?.actionDelegate.swipeDeleteAction(indexPath)
             completionHandler(true)
@@ -106,9 +105,7 @@ extension TaskListTableView: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let doneAction = UIContextualAction(style: .normal, title: "Done") {
-            [weak self] (action, sourceView, completionHandler) in
-            
+        let doneAction = UIContextualAction(style: .normal, title: "Done") { [weak self] _, _, completionHandler in
             self?.actionDelegate.swipeDoneAction(indexPath)
             completionHandler(true)
         }
@@ -120,7 +117,7 @@ extension TaskListTableView: UITableViewDelegate {
     }
 }
 
-//MARK: - TaskTableViewCellDelegate
+// MARK: - TaskTableViewCellDelegate
 
 extension TaskListTableView: TaskTableViewCellDelegate {
     func setStateTask(state: Bool, task: TaskModel) {
@@ -128,7 +125,7 @@ extension TaskListTableView: TaskTableViewCellDelegate {
     }
 }
 
-//MARK: - TaskTableViewHeaderFooterViewDelegate
+// MARK: - TaskTableViewHeaderFooterViewDelegate
 
 extension TaskListTableView: TaskTableViewHeaderFooterViewDelegate {
     func setStateShowTask(_ state: Bool) {

@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol TaskTableViewHeaderFooterViewDelegate {
+protocol TaskTableViewHeaderFooterViewDelegate: AnyObject {
     func setStateShowTask(_ state: Bool)
 }
 
@@ -41,7 +41,7 @@ class TaskTableViewHeaderFooterView: UITableViewHeaderFooterView {
         title.translatesAutoresizingMaskIntoConstraints = false
         return title
     }()
-    private let showButton: UIButton = {
+    private lazy var showButton: UIButton = {
         let showButton = UIButton()
         showButton.setTitle("Показать", for: .normal)
         showButton.setTitleColor(Constans.Colors.navBarTaskColor, for: .normal)
@@ -65,13 +65,13 @@ class TaskTableViewHeaderFooterView: UITableViewHeaderFooterView {
         contentView.addSubview(numberOfTasksLabel)
         NSLayoutConstraint.activate([
             numberOfTasksLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
-            numberOfTasksLabel.heightAnchor.constraint(equalTo: contentView.heightAnchor),
+            numberOfTasksLabel.heightAnchor.constraint(equalTo: contentView.heightAnchor)
             
         ])
         contentView.addSubview(showButton)
         NSLayoutConstraint.activate([
             showButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
-            showButton.heightAnchor.constraint(equalTo: contentView.heightAnchor),
+            showButton.heightAnchor.constraint(equalTo: contentView.heightAnchor)
         ])
     }
     

@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol TaskTableViewCellDelegate {
+protocol TaskTableViewCellDelegate: AnyObject {
     func setStateTask(state: Bool, task: TaskModel)
 }
 
@@ -18,7 +18,7 @@ class TaskTableViewCell: UITableViewCell {
     var state = false
     var task: TaskModel?
 
-    private var checkbox: UIButton = {
+    private lazy var checkbox: UIButton = {
         let checkbox = UIButton()
         checkbox.tintColor = Constans.Colors.secondaryTextColor
         checkbox.addTarget(self,
@@ -103,12 +103,10 @@ class TaskTableViewCell: UITableViewCell {
         switch task.importance {
         case .unimportant:
             title.text = "↓" + title.text!
-            break
         case .ordinary:
             break
         case .important:
             title.text = "‼️" + title.text!
-            break
         }
     }
     
@@ -162,7 +160,7 @@ class TaskTableViewCell: UITableViewCell {
             stackView.leadingAnchor.constraint(equalTo: checkbox.trailingAnchor, constant: 10),
             stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
             stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
-            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
+            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10)
         ])
     }
 }

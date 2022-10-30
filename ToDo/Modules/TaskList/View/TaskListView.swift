@@ -7,13 +7,13 @@
 
 import UIKit
 
-protocol TaskListViewInput {
+protocol TaskListViewInput: AnyObject {
     func reloadTable()
     func reloadRows(_ indexPath: [IndexPath])
     func deleteRows(_ indexPath: [IndexPath])
 }
 
-protocol TaskListViewDelegate {
+protocol TaskListViewDelegate: AnyObject {
     func appendTask()
     func numberOfRowsInSection(_ section: Int) -> Int
     func cellForRowAt(_ indexPath: IndexPath) -> TaskModel
@@ -59,7 +59,7 @@ class TaskListView: UIView {
     }
 }
 
-//MARK: - Private func
+// MARK: - Private func
 
 private extension TaskListView {
     func setup() {
@@ -83,7 +83,7 @@ private extension TaskListView {
     }
 }
 
-//MARK: - @objc private func
+// MARK: - @objc private func
 
 @objc private extension TaskListView {
     func appendTaskButtonPressed() {
@@ -91,7 +91,7 @@ private extension TaskListView {
     }
 }
 
-//MARK: - TaskListTableViewActionDelegate
+// MARK: - TaskListTableViewActionDelegate
 
 extension TaskListView: TaskListTableViewActionDelegate {
     func setCompletedTask(isComplete: Bool, task: TaskModel) {
@@ -118,7 +118,7 @@ extension TaskListView: TaskListTableViewActionDelegate {
     }
 }
 
-//MARK: - TaskListTableViewDataSourceDelegate
+// MARK: - TaskListTableViewDataSourceDelegate
 
 extension TaskListView: TaskListTableViewDataSourceDelegate {
     func getCompletedTasksHidden() -> Bool {
@@ -142,7 +142,7 @@ extension TaskListView: TaskListTableViewDataSourceDelegate {
     }
 }
 
-//MARK: - DidBecomeActiveNotification
+// MARK: - DidBecomeActiveNotification
 
 extension TaskListView {
     fileprivate func addObservers() {
@@ -158,7 +158,7 @@ extension TaskListView {
     }
 }
 
-extension TaskListView : TaskListViewInput {
+extension TaskListView: TaskListViewInput {
     func deleteRows(_ indexPath: [IndexPath]) {
         taskListTableView.deleteRows(at: indexPath, with: .automatic)
     }
